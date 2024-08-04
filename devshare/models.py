@@ -1,7 +1,7 @@
 from django.db import models
 from purchase.models import Order
 
-dev_coefficient = 0.05
+dev_coefficient = 0
 
 
 # Create your models here.

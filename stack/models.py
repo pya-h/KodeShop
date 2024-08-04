@@ -54,9 +54,8 @@ class Stack(models.Model):
 
 class TakenProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="کالا")  # match th item whit selected product
-    variation = models.ForeignKey(Variation, on_delete=models.CASCADE, verbose_name="گونه")
-    stack = models.ForeignKey(Stack, on_delete=models.CASCADE, verbose_name="خرمن")  # to which shop stack it belongs
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="کالا") 
+    stack = models.ForeignKey(Stack, on_delete=models.CASCADE, verbose_name="خرمن")
     quantity = models.IntegerField(default=0, verbose_name="شمار")
     is_available = models.BooleanField(default=True, verbose_name="در دسترس؟")
 

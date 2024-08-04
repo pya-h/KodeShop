@@ -70,7 +70,7 @@ def merge_user_stacks(user):  # temporary approach
                                 # if so just add the quantity of this one to the merged one and then delete this duplicate one
                                 similar_products_in_merged_stack = merged_stack_taken_products.filter(product=taken_product.product)
                                 for possibly_duplicate in similar_products_in_merged_stack:
-                                    if possibly_duplicate.variation == taken_product.variation:
+                                    if possibly_duplicate.variation == taken_product.variation:  # FIXME: change this properly
                                         possibly_duplicate.quantity += taken_product.quantity
                                         possibly_duplicate.save()
                                         taken_product.delete()

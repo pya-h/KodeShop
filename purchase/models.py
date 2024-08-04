@@ -158,7 +158,7 @@ class Order(models.Model):
         ordered_products = PurchasedItem.objects.filter(order=self, buyer=self.buyer, )  # transaction=self.transaction
         for item in ordered_products:
             preferred_variations = item.variations.all()
-            for preferred_variation in preferred_variations:
+            for preferred_variation in preferred_variations:  #  FIXME: REDUCE PRODUCT SROCM INSTEAD
                 variation = Variation.objects.get(id=preferred_variation.id)
                 variation.stock -= item.quantity
                 variation.save()

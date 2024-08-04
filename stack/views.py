@@ -8,19 +8,15 @@ from django.contrib import messages
 
 
 def submit_preferred_variation(variation, taken=None, product=None, current_stack=None):
-    if variation:
-        if not taken:
-            if product and current_stack:
-                taken = TakenProduct.objects.create(product=product, stack=current_stack, variation=variation)
-            elif not product:
-                raise TakenProduct.DoesNotExist('Unknown product. cannot create a new Taken field')
-            elif not current_stack:
-                raise Stack.DoesNotExist('Something went wrong while opening a new shopping stack.')
-        taken.quantity = 1
-        taken.save()
-    else:
-        raise Variation.DoesNotExist('Insufficient number of selected variations')
-
+    if not taken:
+        if product and current_stack:
+            taken = TakenProduct.objects.create(product=product, stack=current_stack)
+        elif not product:
+            raise TakenProduct.DoesNotExist('Unknown product. cannot create a new Taken field')
+        elif not current_stack:
+            raise Stack.DoesNotExist('Something went wrong while opening a new shopping stack.')
+    taken.quantity = 1
+    taken.save()
 
 def put_back(request, product_id, taken_item_id):
     product = get_object_or_404(Product, id=product_id)
@@ -77,28 +73,16 @@ def take_product(request, product_id):
     product = Product.objects.get(id=product_id)
     variation = None
     if request.method == 'POST':
-        # collect all the user selection on product variation
-        color = request.POST['color']
-        size = request.POST['size']
-
-        try:
-            variation = Variation.objects.get(product=product, color=color, size=size)
-            if not variation.stock:
-                messages.error(request, "این کالا موجود نیست!")
-                return redirect(request.META.get('HTTP_REFERER'))
-        except:  # such as csrf_token
-            pass
-
         current_stack = None
         try:
             current_stack = open_stack(request)
             try:
-                taken = TakenProduct.objects.get(variation=variation, stack=current_stack)
+                taken = TakenProduct.objects.get(stack=current_stack)
             except:
                 taken = None
 
             if (not taken or not taken.quantity) and product.available:
-                submit_preferred_variation(taken=taken, variation=variation, product=product,
+                submit_preferred_variation(taken=taken, product=product,
                                            current_stack=current_stack)
             else:
                 # SHOW ERROR MESSAGE
