@@ -8,8 +8,8 @@
           </button>
           <div class="collapse navbar-collapse justify-content-center" id="navbarTop4">
             <ul class="navbar-nav">
-                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=pheelstyle.ir@gmail.com&su=What's up Dadach?" class="nav-link"> <i class="fa fa-envelope"></i> نومه </a></li>
-                <li><a href="tel:+989036365133" class="nav-link"> <i class="fa fa-phone"></i> تیلیف </a></li>
+                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=pheelstyle.ir@gmail.com&su=What's up Dadach?" class="nav-link"> <i class="fa fa-envelope"></i> ایمیل </a></li>
+                <li><a href="tel:+989036365133" class="nav-link"> <i class="fa fa-phone"></i> تلفن </a></li>
             </ul> <!-- list-inline //  -->
           </div> <!-- navbar-collapse .// -->
         </div> <!-- container //  -->
@@ -19,7 +19,7 @@
         <div class="container">
             <div class="intro-banner-wrap">
                 {% comment %} <img src="{% static 'images/banners/1.jpg' %}" class="img-fluid rounded" alt="بارگذاری با مشکل مواجه شد"> {% endcomment %}
-                <div class="site-main-banner">KodeShop</div>
+                <div class="site-main-banner">TALEBI SHOP</div>
             </div>
         </div> <!-- container //  -->
     </section>
@@ -27,7 +27,7 @@
     <section class="header-main border-bottom">
         <div class="container" >
             <div id="navigation-box" class="row align-items-center" style="height:150vh; background: url({% static 'images/logo.png' %}) no-repeat center center ;">
-                <a href="/" class="btn btn-primary-light mx-auto col-5 col-lg col-sm col-md flex-grow-0"> خونه</a>
+                <a href="/" class="btn btn-primary-light mx-auto col-5 col-lg col-sm col-md flex-grow-0"> خانه</a>
                 <div id="category-button" class=" col-5 col-lg col-sm col-md mx-auto flex-grow-0 w-100">
                     <div  dir="ltr" class="category-wrap dropdown d-block float-right w-100">
                         <button type="button" style="font-weight: bold" class="btn btn-outline-danger dropdown-toggle px-3 w-100" data-toggle="dropdown">
@@ -68,12 +68,12 @@
                                 <small class="title text-info">سلام فیلی</small>
                                 <div>
                                     <a class="text-warning profile-summary" href="{% url 'login' %}">ورود</a> <span class="dark-transp"> | </span>
-                                    <a class="text-success profile-summary" href="{% url 'register' %}">نوم نویسی</a>
+                                    <a class="text-success profile-summary" href="{% url 'register' %}">ثبت نام</a>
                                 </div>
                             {% else %}
                                 <small class="title text-info">سلام {{user.fname}} {{user.lname}}</small>
                                 <div>
-                                    <a class="text-info profile-summary" href="{% url 'user-dashboard' %}" >داشبرد</a> <span class="dark-transp"> | </span>
+                                    <a class="text-info profile-summary" href="{% url 'user-dashboard' %}" >پنل کاربری</a> <span class="dark-transp"> | </span>
                                     <a class="text-danger profile-summary" href="{% url 'logout' %}">خروج</a>
                                 </div>
                             {% endif %}

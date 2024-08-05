@@ -36,19 +36,13 @@
                                                     <p class="text-muted small text-center">
                                                         دسته بندی: {{ taken.product.category }}
                                                         <br />
-                                                        رنگ : {{taken.variation.color}}
-                                                        <br />
-                                                        سایز : {{taken.variation.size}}
-
-                                                        <br />
-
                                                         موجودی:
-                                                        {% if taken.variation.stock > 3 %}
-                                                            <span class="badge pill badge-success"> {{ taken.variation.stock }} </span>
-                                                        {% elif taken.variation.stock > 1 %}
-                                                            <span class="badge pill badge-warning"> {{ taken.variation.stock }} </span>
+                                                        {% if taken.product.stock > 3 %}
+                                                            <span class="badge pill badge-success"> {{ taken.product.stock }} </span>
+                                                        {% elif taken.product.stock > 1 %}
+                                                            <span class="badge pill badge-warning"> {{ taken.product.stock }} </span>
                                                         {% else %}
-                                                            <span class="badge pill badge-danger"> {{ taken.variation.stock }} </span>
+                                                            <span class="badge pill badge-danger"> {{ taken.product.stock }} </span>
                                                         {% endif %}
                                                 </figcaption>
                                             </figure>
@@ -99,22 +93,22 @@
                         <div dir="rtl"  class="card-body text-right">
                             <dl class="dlist-align">
                               <dt>قیمت اصلی:</dt>
-                              <dd class="text-center text-primary">{{ stack.cost | intcomma:False }}&nbsp;&nbsp; تومن</dd>
+                              <dd class="text-center text-primary">{{ stack.cost | intcomma:False }}&nbsp;&nbsp; تومان</dd>
                             </dl>
                             <dl class="dlist-align">
                               <dt>تخفیف:</dt>
                                 {% if stack.discounts %}
-                                  <dd class="text-center text-danger">{{ stack.discounts | intcomma:False }}-  &nbsp;تومن</dd>
+                                  <dd class="text-center text-danger">{{ stack.discounts | intcomma:False }}-  &nbsp;تومان</dd>
                                 {% else %}
                                   <dd class="mx-5 text-center text-danger">-</dd>
                                 {% endif %}
                             </dl>
                             <dl class="dlist-align">
                               <dt>هزینه نهایی:</dt>
-                              <dd class="text-center text-success b"><strong>{{ stack.final_cost | intcomma:False }}</strong>&nbsp;&nbsp; تومن</dd>
+                              <dd class="text-center text-success b"><strong>{{ stack.final_cost | intcomma:False }}</strong>&nbsp;&nbsp; تومان</dd>
                             </dl>
                             <hr>
-                            <a href="{% url 'order' %}" class="btn btn-warning btn-block btn-shaking"> زد و بند </a>
+                            <a href="{% url 'order' %}" class="btn btn-warning btn-block btn-shaking"> ثبت سفارش </a>
                             <a href="{% url 'store' %}" class="btn btn-secondary btn-block btn-shaking"> ادامه خرید </a>
 
                         </div> <!-- card-body.// -->
@@ -127,10 +121,8 @@
         {% else %}
             <div class="card">
                 <div class="card-body text-center">
-                    <h3>خرمنت خالیه. یکم شل کن ...</h3>
-                    <br />
-                    <h3>سر کیسه رو</h3>
-                    <a href="{% url 'store' %}" class="btn btn-secondary">بریم خرید</a>
+                    <h3>سبد خریدت خالیه.</h3>
+                    <a href="{% url 'store' %}" class="btn btn-secondary">فروشگاه</a>
                 </div>
             </div>
         {% endif %}

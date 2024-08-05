@@ -63,7 +63,7 @@
                                                 <tr>
                                                     <th class="table-column-1 text-center">کالا</th>
                                                     <th class="table-column-1 text-center">تعداد</th>
-                                                    <th class="table-column-1  text-center">هزینه (تومن)</th>
+                                                    <th class="table-column-1  text-center">هزینه (تومان)</th>
                                                 </tr>
                                             </thead>
                                             <tbody >
@@ -71,12 +71,6 @@
                                                 <tr>
                                                     <td  class="table-column-1 text-center p-4">
                                                         {{ item.product }}
-                                                        <p class="text-muted my-0">
-                                                            سایز: {{ item.variation.size }}
-                                                        </p>
-                                                        <p class="text-muted my-0">
-                                                            رنگ: {{ item.variation.color }}
-                                                        </p>
                                                     </td>
                                                     <td class="table-column-1 text-center p-3">1</td>
                                                     <td class="table-column-1 text-center p-3">{{ item.cost | intcomma:False }}</td>

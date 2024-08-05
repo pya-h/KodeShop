@@ -34,6 +34,7 @@
                       </div>
                       <div class="card-body">
                         <h5 class="card-title">پرداخت از طریق کارت به کارت و ارسال رسید</h5>
+                        <h5 class="card-title">پرداخت از طریق درگاه پرداخت</h5>
                       </div>
 
                     </div>
@@ -69,7 +70,7 @@
                                     <thead class="text-muted bg-light">
                                         <tr class="small text-center text-uppercase">
                                           <th scope="col">کالا</th>
-                                          <th scope="col">قیمت نهایی (تومن)</th>
+                                          <th scope="col">قیمت نهایی (تومان)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,15 +90,15 @@
 
                                                             <p class="text-muted small text-center">
                                                                 دسته بندی: {{ item.product.category }} <br />
-                                                                سایز: {{ item.variation.size }} <br />
-                                                                رنگ: {{ item.variation.color }} <br />
+                                                                سایز: {{ item.product.size }} <br />
+                                                                رنگ: {{ item.product.color }} <br />
                                                                 موجودی:
-                                                                {% if item.variation.stock > 3 %}
-                                                                    <span class="badge pill badge-success"> {{ item.variation.stock }} </span>
-                                                                {% elif item.variation.stock > 1 %}
-                                                                    <span class="badge pill badge-warning"> {{ item.variation.stock }} </span>
+                                                                {% if item.product.stock > 3 %}
+                                                                    <span class="badge pill badge-success"> {{ item.product.stock }} </span>
+                                                                {% elif item.product.stock > 1 %}
+                                                                    <span class="badge pill badge-warning"> {{ item.product.stock }} </span>
                                                                 {% else %}
-                                                                    <span class="badge pill badge-danger"> {{ item.variation.stock }} </span>
+                                                                    <span class="badge pill badge-danger"> {{ item.product.stock }} </span>
                                                                 {% endif %}
                                                         </figcaption>
                                                     </figure>

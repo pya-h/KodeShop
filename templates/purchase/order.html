@@ -14,11 +14,11 @@
                                 <hr />
                                     <div class="form-row">
                                         <div class="col form-group">
-                                            <label for="fname">اسم</label>
+                                            <label for="fname">نام</label>
                                             <input id="fname" class="form-control" placeholder="نام" name="fname" value="{{ user.fname }}" required />
                                         </div>
                                         <div class="col form-group">
-                                            <label for="lname">فامیل</label>
+                                            <label for="lname">نام خانوادگی</label>
                                             <input id="lname" class="form-control" placeholder="نام خانوادگی" name="lname" value="{{ user.lname }}" required />
                                         </div>
                                     </div>
@@ -82,14 +82,12 @@
                                                         <p class="text-muted small text-center">
                                                             {{ taken.product.category }}
                                                             <br />
-                                                            {{ taken.variation.size }}
-                                                            {{ taken.variation.color }}
-                                                            {% if taken.variation.stock > 3 %}
-                                                                <span class="badge pill badge-success"> {{ taken.variation.stock }} </span>
-                                                            {% elif taken.variation.stock > 1 %}
-                                                                <span class="badge pill badge-warning"> {{ taken.variation.stock }} </span>
+                                                            {% if taken.product.stock > 3 %}
+                                                                <span class="badge pill badge-success"> {{ taken.product.stock }} </span>
+                                                            {% elif taken.product.stock > 1 %}
+                                                                <span class="badge pill badge-warning"> {{ taken.product.stock }} </span>
                                                             {% else %}
-                                                                <span class="badge pill badge-danger"> {{ taken.variation.stock }} </span>
+                                                                <span class="badge pill badge-danger"> {{ taken.product.stock }} </span>
                                                             {% endif %}
                                                     </figcaption>
                                                 </figure>
@@ -120,11 +118,11 @@
                             </table>
                         <div class="card">
                             <div dir="rtl"  class="card-body text-right">
-                                <dl class="dlist-align">
+                                <dl class="dlist-align" >
                                   <dt>قیمت اصلی:</dt>
                                   <dd class="text-left text-primary">{{ stack.cost | intcomma:False }}&nbsp;&nbsp; تومن</dd>
                                 </dl>
-                                <dl class="dlist-align">
+                                <dl class="dlist-align" >
                                   <dt>تخفیف:</dt>
                                   <dd class="text-left text-danger">{{ stack.discounts | intcomma:False }}-  &nbsp;تومن</dd>
                                 </dl>
