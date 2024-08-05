@@ -144,7 +144,7 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 STATIC_URL = '/static/'
 # STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
-    'kodeshop/rawstatic',
+    'kodeshop/static',
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
