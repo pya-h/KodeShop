@@ -7,7 +7,7 @@ from .utlities import open_stack
 from django.contrib import messages
 
 
-def add_product_to_stack(variation, taken=None, product=None, current_stack=None):
+def add_product_to_stack(taken=None, product=None, current_stack=None):
     if not taken:
         if product and current_stack:
             taken = TakenProduct.objects.create(product=product, stack=current_stack)

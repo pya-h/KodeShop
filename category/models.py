@@ -12,8 +12,8 @@ class Category(models.Model):
     branch_of = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, verbose_name='زیرشاخه دسته بندی')
 
     class Meta:
-        verbose_name = "دسته"
-        verbose_name_plural = "دسته ها"
+        verbose_name = "دسته بندی"
+        verbose_name_plural = "دسته بندی ها"
 
     def url(self):
         return reverse('filtered_by_category', args=[self.slug])  # or-> '/store/' + self.slug + '/'

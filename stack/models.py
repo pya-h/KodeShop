@@ -12,8 +12,8 @@ class Stack(models.Model):
     discounts = models.IntegerField(default=0, verbose_name="تخفیف")
 
     class Meta:
-        verbose_name = 'بقچه خرید'
-        verbose_name_plural = 'بقچه های خرید'
+        verbose_name = 'سبد خرید'
+        verbose_name_plural = 'سبد های خرید'
 
     def final_cost(self):
         result = self.cost - self.discounts
@@ -60,8 +60,8 @@ class TakenProduct(models.Model):
     is_available = models.BooleanField(default=True, verbose_name="در دسترس؟")
 
     class Meta:
-        verbose_name = 'کالای نشون شده'
-        verbose_name_plural = 'کالاهای نشون شده'
+        verbose_name = 'کالای داخل سبدخرید'
+        verbose_name_plural = 'کالاهای داخل سبدخرید'
 
     def increase_quantity(self):
         if self.product.available and self.quantity < self.product.stock:

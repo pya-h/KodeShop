@@ -16,7 +16,7 @@
             {% if popular_products%}
                 <div class="row">
                     {% for product in popular_products %}
-                        {% if product.variation_set.displayable %}
+                        {% if product.stock and product.available %}
                             <div class="col-md-3">
                                 <div class="card expand-opacity-animation card-product-grid">
                                     <a href="{{ product.url }}" class="img-wrap"> <img src="{{product.image.url}}"> </a>

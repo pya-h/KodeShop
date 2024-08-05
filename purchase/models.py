@@ -127,8 +127,8 @@ class Order(models.Model):
     whats_wrong = models.TextField(max_length=256, null=True, blank=True, verbose_name='علت رد سفارش')
 
     class Meta:
-        verbose_name = 'زدوبند'
-        verbose_name_plural = 'زدوبندها'
+        verbose_name = 'سفارش'
+        verbose_name_plural = 'سفارش ها'
 
     def how_much_to_pay(self):
         self.must_be_paid = self.cost - self.discounts + self.shipping_cost
@@ -169,7 +169,7 @@ class Order(models.Model):
 class PurchasedItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False, verbose_name='آیدی')
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='سفارش مربوطه')
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='مالک زدوبند')
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='مالک سفارش')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='کالا')
     quantity = models.IntegerField(default=0, verbose_name='تعداد')
 
@@ -177,12 +177,12 @@ class PurchasedItem(models.Model):
 
     delivered = models.BooleanField(default=False, verbose_name='تحویل شده')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
-    date_updated = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ به روزرسانی')
-    anything_wrong = models.CharField(max_length=50, blank=True, null=True, default="", verbose_name='مشکل پشکل؟')
+    date_updated = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ آخرین تغییر')
+    anything_wrong = models.CharField(max_length=50, blank=True, null=True, default="", verbose_name='مشکل در سفارش')
 
     class Meta:
-        verbose_name = 'کالای زدوبندی'
-        verbose_name_plural = 'کالاهای زدوبندی'
+        verbose_name = 'کالای سفارشی'
+        verbose_name_plural = 'کالاهای سفارشی'
 
     def __str__(self):
         return f'{self.product} [{self.quantity}]'

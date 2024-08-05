@@ -87,7 +87,7 @@
                     {% if products %}
                         <div class="row">
                             {% for product in products %}
-                                {% if product.variation_set.displayable %}
+                                {% if product.stock and product.available %}
                                     <div class="col-lg-4 col-md-6">
                                         <figure class="card card-product-grid">
                                             <div class="img-wrap expand-opacity-animation">
