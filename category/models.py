@@ -9,6 +9,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=30, unique=True, verbose_name="اسلاگ")
     description = models.TextField(max_length=256, blank=True, verbose_name="توضیحات")
     icon = models.ImageField(upload_to='photos/categories/', blank=True, verbose_name="آیکون") # optional field
+    branch_of = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, verbose_name='زیرشاخه دسته بندی')
 
     class Meta:
         verbose_name = "دسته"

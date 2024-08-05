@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'purchase',
     'dashboard',
     'devshare',
-    'shop'
     # 'gateways'
 ]
 
@@ -149,7 +148,7 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'public'
 # USE_THOUSAND_SEPARATOR = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

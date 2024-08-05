@@ -1,5 +1,5 @@
 import uuid
-from store.models import Product, Variation
+from store.models import Product
 from django.db import models
 from user.models import User
 
@@ -64,10 +64,8 @@ class TakenProduct(models.Model):
         verbose_name_plural = 'کالاهای نشون شده'
 
     def increase_quantity(self):
-        if self.product.available and self.quantity < self.variation.stock:
+        if self.product.available and self.quantity < self.product.stock:
             self.quantity += 1
-        # else:
-        # SHOW ERROR MESSAGE
 
     def decrease_quantity(self):
         self.quantity = self.quantity - 1 if self.quantity > 0 else 0

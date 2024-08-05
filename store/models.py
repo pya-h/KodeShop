@@ -5,19 +5,19 @@ from django.urls import reverse
 import uuid
 from user.models import User
 from django.db.models import Avg, Count
-from shop.models import Shop
 
 
 class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="آیدی")
-    name = models.CharField(max_length=64, unique=True, blank=False, verbose_name="نام به اجنبی")
+    name = models.CharField(max_length=64, unique=True, blank=False, verbose_name="نام به انگلیسی")
     name_fa = models.CharField(max_length=64, unique=True, blank=False, verbose_name="نام")
     slug = models.SlugField(max_length=64, unique=True, verbose_name="اسلاگ")
     description = models.TextField(max_length=1024, blank=True, verbose_name="مشخصات")
-    price = models.IntegerField(verbose_name="شیتیل")
+    price = models.IntegerField(verbose_name="قیمت")
+    stock = models.IntegerField(verbose_name="موجودی")
     available = models.BooleanField(default=True, verbose_name="در دسترس؟")
-    created = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
-    modified = models.DateTimeField(auto_now=True, verbose_name="تاریخ تغییر")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد این محصول")
+    modified = models.DateTimeField(auto_now=True, verbose_name="تاریخ آخرزین تغییر اطلاعات")
     discount = models.IntegerField(default=0, verbose_name="تخفیف")  # discount in percentage
     # below line delete all products associated when the category deletes!! expected?
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="دسته بندی")
@@ -69,16 +69,16 @@ class Gallery(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="کالای مرتبط")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
-    comment = models.TextField(max_length=500, blank=True, verbose_name="سخنوری")
-    rating = models.FloatField(verbose_name="امتیازدهی")
+    comment = models.TextField(max_length=500, blank=True, verbose_name="نظر")
+    rating = models.FloatField(verbose_name="امتیاز")
     ip = models.CharField(max_length=20, blank=True)
     status = models.BooleanField(default=True, verbose_name="وضعیت")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ درافشانی")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="به روز رسانی نظز")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد نظر")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="به روز رسانی اطلاعات نظز")
 
     class Meta:
-        verbose_name = 'فیلان بیسار'
-        verbose_name_plural = 'فیلان ها و بیسارها'
+        verbose_name = 'نظر کاربران'
+        verbose_name_plural = 'نظرات کاربران'
 
     def __str__(self):
         return f'{self.user.fname}: {self.comment}'

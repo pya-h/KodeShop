@@ -1,11 +1,10 @@
 from django.db import models
 from purchase.models import Order
 
-dev_coefficient = 0
-
 
 # Create your models here.
 class DevShare(models.Model):
+    ShareCoefficient = 0
     order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=False)
     STATUS = (('onhold', 'در انتظار پرداخت'),
               ('verified', 'قطعی'))
@@ -17,7 +16,7 @@ class DevShare(models.Model):
         verbose_name_plural = 'سهم دولوپر'
         
     def calculate(self):
-        self.amount = self.order.must_be_paid * dev_coefficient
+        self.amount = self.order.must_be_paid * self.ShareCoefficient
 
     def verify(self):
         self.status = 'verified'

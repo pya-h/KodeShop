@@ -29,9 +29,6 @@ def finalize_order(request, order_key, method, status, reference_id=None, amount
                 purchased_item.quantity = item.quantity
                 purchased_item.cost = item.total_price()
                 purchased_item.delivered = order.status == 'delivered'
-                # purchased_item.color = ...?
-                # purchased_item.size = ...?
-                purchased_item.variation = item.variation
                 purchased_item.save()
 
                 # **** NOTE ****
@@ -116,9 +113,10 @@ def submit_order(request):
                 order.save()  # save object and create id field for it (to use in keygen)
                 order.key = order.keygen()
                 order.save()  # call save for django to set the id primary key automatically
-                new_share = DevShare(order=order)
-                new_share.calculate()
-                new_share.save()
+                if DevShare.ShareCoefficient:
+                    new_share = DevShare(order=order)
+                    new_share.calculate()
+                    new_share.save()
                 # use Order.objects.get to make sure that the order is saved properly and retrievable
                 order = Order.objects.get(buyer=request.user, key=order.key)
                 context = {
@@ -149,7 +147,7 @@ def check_order(request, order_key):
     return render(request, 'purchase/preview.html')
 
 
-# ACTUALLY THIS METHOD MUST BE CALLED BY ADIM SIDE
+# ACTUALLY THIS METHOD MUST BE CALLED BY ADMIN SIDE
 @login_required(login_url="login")
 def accept_order(request, order_key):
     order = None

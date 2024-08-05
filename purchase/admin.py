@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from common.tools import MailingInterface
 from devshare.models import DevShare
 
+
 # TODO:
 # ADD TRANSACTION & ORDERRECEIVER MANAGERS CLASSES AS INLINES FOR ORDER ADMIN PANEL
 
@@ -13,22 +14,23 @@ from devshare.models import DevShare
 class PurchasedItemInline(admin.TabularInline):
     model = PurchasedItem
 
-    readonly_fields = ('product', 'variation', 'order', 'buyer', 'quantity', 'cost', 'delivered')
-    fields = ('product', 'variation', 'quantity', 'cost')
+    readonly_fields = ('product', 'order', 'buyer', 'quantity', 'cost', 'delivered')
+    fields = ('product', 'quantity', 'cost')
     extra = 0
 
 
 class OrderReceiverInline(admin.TabularInline):
     model = OrderReceiver
-    readonly_fields = ('related_to', 'fname', 'lname', 'province', 'city', 'phone', 'address', 'postal_code')  # , 'order')
+    readonly_fields = (
+        'related_to', 'fname', 'lname', 'province', 'city', 'phone', 'address', 'postal_code')  # , 'order')
     extra = 0
 
 
 class OrderAdminPanel(admin.ModelAdmin):
     list_display = ('key', 'buyer', 'status', 'seen',)
-    list_editable = ('status', )
-    list_filter = ('status', 'seen', )
-    search_fields = ('key', 'receiver__fname', 'receiver__lname', 'buyer__fname', 'buyer__lname',  'status')
+    list_editable = ('status',)
+    list_filter = ('status', 'seen',)
+    search_fields = ('key', 'receiver__fname', 'receiver__lname', 'buyer__fname', 'buyer__lname', 'status')
     list_per_page = 20
     inlines = (PurchasedItemInline,)  # OrderReceiverInline)
     change_form_template = "personalization/order_admin_template.html"
@@ -49,24 +51,28 @@ class OrderAdminPanel(admin.ModelAdmin):
                     goods = PurchasedItem.objects.filter(order=order)
 
                     for item in goods:
-                        item.variation.stock -= item.quantity
-                        item.variation.save()
-                        item.save()
+                        item.product.stock -= item.quantity
+                        item.product.save()
+                        # item.save()  # FIXME: Is it needed?
 
                     order.whats_wrong = None
                     # send email with details to notify that the order is verified and will be prepared to send
                     if not order.buyer or not order.buyer.email:
-                        messages.error(request, "خریدار این سفارش و یا ایمیل وی مشخص نیست. احتمالا اطلاعات این کاربر دستکاری شده است و نیاز به بررسی دارد.")
+                        messages.error(request,
+                                       "خریدار این سفارش و یا ایمیل وی مشخص نیست. احتمالا اطلاعات این کاربر دستکاری شده است و نیاز به بررسی دارد.")
                         return redirect(request.path)
                     ref_id = order.transaction.receipt.reference_id if order.transaction and order.transaction.receipt else None
-                    MailingInterface.SendMessage(request, order.buyer.email, "تایید سفارش", "order_verified", {"name": order.buyer.fname, "order_key": order.key, "reference_id": ref_id})
+                    MailingInterface.SendMessage(request, order.buyer.email, "تایید سفارش", "order_verified",
+                                                 {"name": order.buyer.fname, "order_key": order.key,
+                                                  "reference_id": ref_id})
                     order.save()
-                    try:
-                        dev_share = DevShare.objects.get(order=order)
-                        dev_share.verify()
-                        dev_share.save()
-                    except Exception as ex:
-                        print("Cannot retrieve developer share: ", ex)
+                    if DevShare.ShareCoefficient:
+                        try:
+                            dev_share = DevShare.objects.get(order=order)
+                            dev_share.verify()
+                            dev_share.save()
+                        except Exception as ex:
+                            print("Cannot retrieve developer share: ", ex)
                 else:
                     messages.info(request, "این سفارش قبلا تایید شده است.")
                     return redirect(request.path)
@@ -81,7 +87,8 @@ class OrderAdminPanel(admin.ModelAdmin):
                 order.seen = True
                 order.save()
                 if not order.buyer or not order.buyer.email:
-                    messages.error(request, "خریدار این سفارش و یا ایمیل وی مشخص نیست. احتمالا اطلاعات این کاربر دستکاری شده است و نیاز به بررسی دارد.")
+                    messages.error(request,
+                                   "خریدار این سفارش و یا ایمیل وی مشخص نیست. احتمالا اطلاعات این کاربر دستکاری شده است و نیاز به بررسی دارد.")
                     return redirect(request.path)
 
                 MailingInterface.SendMessage(request,
@@ -103,38 +110,41 @@ class OrderAdminPanel(admin.ModelAdmin):
 
 
 class PurchasedItemAdminPanel(admin.ModelAdmin):
-    list_display = ('buyer', 'product', 'variation', 'quantity',)
+    list_display = ('buyer', 'product', 'quantity',)
     list_filter = ('delivered',)
     search_fields = (
         'product__name', 'product__name_fa', 'order__key', 'variation__color', 'variation__size',
-                     'order__receiver__fname', 'order__receiver__lname', 'order__buyer__fname', 'order__buyer__lname', 
+        'order__receiver__fname', 'order__receiver__lname', 'order__buyer__fname', 'order__buyer__lname',
     )
     list_per_page = 20
 
 
 class OrderReceiverAdminPanel(admin.ModelAdmin):
     list_display = ('phone', 'fname', 'lname', 'province', 'city')
-    list_filter = ( 'province', 'city')
+    list_filter = ('province', 'city')
     search_fields = ('phone', 'fname', 'lname', 'province', 'city', 'postal_code', 'address')
     list_per_page = 20
+
 
 class TransactionInlinePanel(admin.TabularInline):
     model = Transaction
     extra = 0
-    
+
 
 class ReceiptAdminPanel(admin.ModelAdmin):
-    inlines = (TransactionInlinePanel, )
+    inlines = (TransactionInlinePanel,)
     list_display = ('reference_id', 'order_key', 'amount')
     search_fields = ('reference_id', 'order_key', 'amount')
-    list_display_links = ('reference_id', )
-    
+    list_display_links = ('reference_id',)
+
+
 class TransactionAdminPanel(admin.ModelAdmin):
     list_display = ('receipt', 'validation', 'performer', 'date_created')
-    list_filter = ('validation', 'method', )
-    search_fields = ('receipt__reference_id', 'performer__fname', 'performer__lname', 'validation', 'date_created', 'method', )
+    list_filter = ('validation', 'method',)
+    search_fields = (
+        'receipt__reference_id', 'performer__fname', 'performer__lname', 'validation', 'date_created', 'method',)
 
-    
+
 admin.site.register(Receipt, ReceiptAdminPanel)
 admin.site.register(Transaction, TransactionAdminPanel)
 admin.site.register(Order, OrderAdminPanel)

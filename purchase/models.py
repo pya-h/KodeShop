@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from store.models import Variation, Product
+from store.models import Product
 from user.models import User
 from uuid import uuid4
 from django.urls import reverse
@@ -157,11 +157,9 @@ class Order(models.Model):
         # apply order and update the product stocks and statistics in the inventory
         ordered_products = PurchasedItem.objects.filter(order=self, buyer=self.buyer, )  # transaction=self.transaction
         for item in ordered_products:
-            preferred_variations = item.variations.all()
-            for preferred_variation in preferred_variations:  #  FIXME: REDUCE PRODUCT SROCM INSTEAD
-                variation = Variation.objects.get(id=preferred_variation.id)
-                variation.stock -= item.quantity
-                variation.save()
+            item.product.stock -= item.quantity
+            item.product.save()
+            # item.save()  # FIXME: is it needed?
         self.save()
 
     def status_fa(self):
@@ -172,15 +170,10 @@ class PurchasedItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False, verbose_name='آیدی')
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='سفارش مربوطه')
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='مالک زدوبند')
-
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='کالا')  # match th item whit selected product
-    variation = models.ForeignKey(Variation, on_delete=models.CASCADE, verbose_name='گونه')
-
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='کالا')
     quantity = models.IntegerField(default=0, verbose_name='تعداد')
-#    color = models.CharField(max_length=20, verbose_name='رنگ')  # these two variation are defined separately are for direct access
-#    size = models.CharField(max_length=20, verbose_name='سایز')
-    cost = models.IntegerField(verbose_name='هزینه')  # final price for each product that is ordered ( considering the quantity and
-    # discount)
+
+    cost = models.IntegerField(verbose_name='هزینه')
 
     delivered = models.BooleanField(default=False, verbose_name='تحویل شده')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
@@ -192,15 +185,15 @@ class PurchasedItem(models.Model):
         verbose_name_plural = 'کالاهای زدوبندی'
 
     def __str__(self):
-        return f'{self.product} - {self.variation} [{self.quantity}]'
+        return f'{self.product} [{self.quantity}]'
 
     def resources_are_enough(self):
-        return self.variation.stock >= self.quantity
+        return self.product.stock >= self.quantity
 
     def ID(self):
         return self.id
 
-    def total_price(self):  # the price of all items of this product(and variation) without considering discounts
+    def total_price(self):
         return self.quantity * self.product.price
 
     def absolute_price(self):  # each item price considering the discounts

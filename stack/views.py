@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from store.models import Product, Variation
+from store.models import Product
 from .models import Stack, TakenProduct
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -7,7 +7,7 @@ from .utlities import open_stack
 from django.contrib import messages
 
 
-def submit_preferred_variation(variation, taken=None, product=None, current_stack=None):
+def add_product_to_stack(variation, taken=None, product=None, current_stack=None):
     if not taken:
         if product and current_stack:
             taken = TakenProduct.objects.create(product=product, stack=current_stack)
@@ -17,6 +17,7 @@ def submit_preferred_variation(variation, taken=None, product=None, current_stac
             raise Stack.DoesNotExist('Something went wrong while opening a new shopping stack.')
     taken.quantity = 1
     taken.save()
+
 
 def put_back(request, product_id, taken_item_id):
     product = get_object_or_404(Product, id=product_id)
@@ -71,7 +72,6 @@ def take_another(request, product_id, taken_item_id):
 
 def take_product(request, product_id):
     product = Product.objects.get(id=product_id)
-    variation = None
     if request.method == 'POST':
         current_stack = None
         try:
@@ -82,15 +82,15 @@ def take_product(request, product_id):
                 taken = None
 
             if (not taken or not taken.quantity) and product.available:
-                submit_preferred_variation(taken=taken, product=product,
-                                           current_stack=current_stack)
+                add_product_to_stack(taken=taken, product=product,
+                                     current_stack=current_stack)
             else:
                 # SHOW ERROR MESSAGE
 
                 return redirect('stack')
         except TakenProduct.DoesNotExist:
             # handle this error (actually it must never happen
-            submit_preferred_variation(variation=variation, product=product, current_stack=current_stack)
+            add_product_to_stack(product=product, current_stack=current_stack)
 
         except ObjectDoesNotExist:
             # handle this error seriously
