@@ -46,7 +46,16 @@ a:hover {
     padding: 2rem 2.3rem;
 }
 
+.article-text {
+    line-height: 2;
+    font-weight: 500;
+    line-break: auto;
+    align-items: inherit;
 
+}
+.article-text:first-letter {
+    padding-right: 3rem;
+}
 /* =================  DEFINED VARIABLES =================== */
 
 .icon-xs,

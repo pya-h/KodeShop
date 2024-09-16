@@ -39,7 +39,7 @@ def search(request):
 
 
 def about_us(request):
-    return render(request, 'index.html')
+    return render(request, 'us/about.html')
 
 
 def contact_us(request):
