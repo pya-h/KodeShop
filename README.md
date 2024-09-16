@@ -1,4 +1,2 @@
-# Pheelstyle Shop
-Fullstack online shop.
-
-Live Demo: https://third-elite-geranium.glitch.me/
+# KodeShop
+An online shop project derived & simplified from my pheelstyle project [https://github.com/pya-h/pheelstyle]
