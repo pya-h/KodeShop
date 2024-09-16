@@ -4,9 +4,8 @@
 }
 .search-textbox {
     border: 1px dashed coral;
-    width:60%;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     opacity: 0.3;
     transition: opacity 1.5s ease-in-out;
     -webkit-transition: opacity 1.5s ease-in-out;
@@ -28,6 +27,6 @@
     background: coral;
 }
 .profile-summary {
-    font-size: 150%;
+    font-size: 110%;
     font-weight: bolder
 }

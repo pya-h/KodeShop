@@ -178,8 +178,21 @@ ul.product-image-thumbnail li img:hover {
         filter: hue-rotate(360deg);
     }
 }
+
+@keyframes rainbow-wave-animation {
+    to {
+        filter: hue-rotate(0deg);
+        font-size: 2rem;
+    }
+    from {
+        filter: hue-rotate(360deg);
+        font-size: 1rem;
+    }
+}
+
 .site-main-banner {
     font-size: 70px;
+    font-weight: bolder;
     text-emphasis: "☻";
     -webkit-text-stroke: 2px rgba(0, 0, 0, 0.884);
     color: red;
@@ -189,6 +202,14 @@ ul.product-image-thumbnail li img:hover {
     transition: transform 500ms ease-in;
     cursor: pointer;
     
+}
+.header-icons-rainbow {
+    color: coral;
+    animation: rainbow-animation 2000ms linear infinite;
+    transition: transform 500ms ease-in;
+}
+.nav-bar-options:hover {
+    font-size: 2rem !important;
 }
 @media (max-width: 768px) {
     .site-main-banner {

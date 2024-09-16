@@ -10,14 +10,31 @@
             <div class="row text-right">
                 <aside class="col-md-3">
                     <div class="card">
+                        <div id="category-button">
+                            <div  dir="ltr" class="category-wrap dropdown d-block float-right w-100">
+                                    <button type="button" style="font-weight: bold" class="btn btn-outline-success dropdown-toggle px-3 w-100" data-toggle="dropdown">
+                                        <i class="fa fa-bars"></i> همه دسته ها
+                                    </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-right" href="{% url 'store' %}">همه</a>
+                                    {% if categories %}
+                                        {% for category in categories %}
+                                            <a class="dropdown-item text-right" href="{{category.url}}">{{ category }}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>  <!-- category-wrap.// -->
+                        </div> <!-- col.// -->
                         <article class="filter-group">
                             <header class="card-header">
+
                                 <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
                                     <i class="icon-control fa fa-chevron-down"></i>
-                                    <h6 class="title mx-4">دسته ها</h6>
+                                    <h6 class="title mx-4">دسته بندی ها</h6>
                                 </a>
                             </header>
-                            <div class="filter-content collapse show" id="collapse_1" style="">
+
+                            <div class="filter- content collapse show" id="collapse_1" style="">
                                 <div class="card-body">
                                     <ul class="list-menu px-1">
                                         <li class="text-center"><a class="mx-auto btn expandable-button {% if current_category == None %}w-100 btn-outline-success{% else %}btn-outline-dark{% endif %}" href="{% url 'store' %}">همگی</a></li>
@@ -107,7 +124,10 @@
                                                 {% elif not product.available %}
                                                     <button disabled class="btn btn-block btn-danger">ناموجود</button>
                                                 {% else %}
-                                                    <a href="{% url 'take_product' product.ID %}" enabled="true" class="btn btn-shaking btn-block btn-primary">افزودن به سبد</a>
+                                                    <form method="POST" action="{% url 'take_product' product.ID %}" >
+                                                        {% csrf_token %}
+                                                         <button type="submit" href="{% url 'take_product' product.ID %}" class="btn btn-shaking btn-block btn-primary">افزودن به سبد</button>
+                                                    </form>
                                                 {% endif %}
                                             </figcaption>
                                         </figure>

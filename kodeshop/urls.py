@@ -14,6 +14,8 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('search/', views.search, name='search'),
+    path('about/', views.about_us, name='about'),
+    path('contact/', views.contact_us, name='contact'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
