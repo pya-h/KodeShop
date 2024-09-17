@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <section class="section-content pure-article padding-y bg">
+        <div class="container">
+            <div style="border-radius: 10px" class="card my-5 ">
+
+                    <main class="border-left text-right" style="border-radius: 20px;">
+                        <h2 class="title text-center py-3">تماس با ما</h2>
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <ul class="col">
+                                <li class="article-text row my-4">
+                                    <b class="col ml-lg-5 text-left">
+                                        تلفن:
+                                    </b>
+                                    <a  href="tel:+989372537188" class="col mr-lg-5" dir="ltr">
+                                        0 937 253 1788
+                                    </a>
+                                </li>
+                                <li class="article-text row  my-4">
+                                    <b class="col ml-lg-5 mx-sm-0 text-left">
+                                        تلگرام:
+                                    </b>
+                                    <a class="col mr-lg-5 mx-sm-0" dir="ltr" href="https://t.me/Mahyartl">
+                                        @Mahyartl
+                                    </a>
+                                </li>
+                                <li class="article-text row  my-4">
+                                    <b class="col ml-lg-5 mx-sm-0 text-left">
+                                        اینستاگرام:
+                                    </b>
+                                    <a class="col mr-lg-5 mx-sm-0" dir="ltr" href="https://www.instagram.com/keshavarzi_jolani?igsh=em5sbGo3a2F2MHR6">
+                                        @keshavarzi_jolani
+                                    </a>
+                                </li>
+                                 <li class="article-text row  my-4">
+                                    <b class="col ml-lg-5 mx-sm-0 text-left">
+                                        واتساپ:
+                                    </b>
+                                    <a class="col mr-lg-5 mx-sm-0" dir="ltr" href="https://chat.whatsapp.com/DXMGhemfYZv9vFrRNzk7gO">
+                                        خدمات کشاورزی جولانی
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="col-lg-3"></div>
+                        </div>
+
+                    </main>
+                </div>
+            </div>
+            <br>
+            <hr>
+
+    </section>
+
+    <section class="section-content padding-y bg ">
+        <div class="container mt-5 text-center pt-5">
+                <form action="{% url 'send_support_message' %}" method="POST">
+                    {% csrf_token %}
+                    <div  style="border-radius: 10px" class="box mb-3 glow-effect  px-5">
+                         <h1 class="col my-4">
+                             ارتباط با ما
+                        </h1>
+                        <hr>
+                        {% include 'includes/toast.html' %}
+                        {% if user.is_authenticated %}
+                            <div class="form-group text-right" >
+                                <label for="subject">
+                                    موضوع
+                                </label>
+                                <input id="subject" type="text" class="form-control" name="subject" placeholder="موضوع پیام" >
+                            </div> <!-- form-group// -->
+                            <div class="form-group text-right">
+                                <label for="content">پیام</label><textarea id="content" name="content" rows="4" minlength="3" class="form-control" placeholder="محتوای پیام شما..."></textarea>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 my-1" style="float: left">
+                                <button type="submit" class="btn btn-success btn-block btn-shaking text-center"><b>ارسال</b></button>
+                            </div>
+                        {% else %}
+                            <div>برای ارسال پیام به ما، ابتدا
+                                <a href="{% url 'login' %}">وارد اکانت</a>
+                                خود شوید</div>
+                        {% endif %}
+                    </div>
+                    <div class="text-right text-danger">
+                        <p>{{ form.non_field_errors }}</p>
+                    </div>
+                </form>
+        </div>
+    </section>
+{% endblock %}

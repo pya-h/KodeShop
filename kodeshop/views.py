@@ -34,13 +34,9 @@ def search(request):
             }
             return render(request, 'index.html', context)
     except:
-        messages.error(request, "مشکلی در روند جستجو اتفاق افتاد. دوباره زور بزن ...")
+        messages.error(request, "مشکلی در روند جستجو اتفاق افتاد. لطفا دوباره تلاش کنید.")
         return redirect(request.META.get('HTTP_REFERER'))
 
 
 def about_us(request):
     return render(request, 'us/about.html')
-
-
-def contact_us(request):
-    return render(request, 'index.html')

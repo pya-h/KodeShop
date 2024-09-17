@@ -4,7 +4,6 @@ from .models import Stack, TakenProduct
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .utlities import open_stack
-from django.contrib import messages
 
 
 def add_product_to_stack(taken=None, product=None, current_stack=None):

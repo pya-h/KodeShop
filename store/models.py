@@ -8,7 +8,6 @@ from django.db.models import Avg, Count
 
 
 class Product(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="آیدی")
     name = models.CharField(max_length=64, unique=True, blank=False, verbose_name="نام به انگلیسی")
     name_fa = models.CharField(max_length=64, unique=True, blank=False, verbose_name="نام")
     slug = models.SlugField(max_length=64, unique=True, verbose_name="اسلاگ")
@@ -53,6 +52,7 @@ class Product(models.Model):
         except Exception as ex:
             print("Something went wrong while calculating product rating because: ", ex)
         return None
+
 
 class Gallery(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default=None, verbose_name="کالای مرتبط")

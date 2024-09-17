@@ -78,7 +78,7 @@ def post_review(request, product_id):
                 form = ReviewForm(request.POST, instance=old_review)  # instance=review parameter will prevent from
                 # django from creating new review, and it will replace existing one
                 form.save()
-                messages.info(request, "نظر قبلی شما به روز رسانی شد.")
+                messages.info(request, "نظر شما به روز رسانی شد.")
             except Review.DoesNotExist:
                 form = ReviewForm(request.POST)
                 if form.is_valid():
@@ -91,9 +91,10 @@ def post_review(request, product_id):
                         new_review.save()
                         messages.success(request, 'نظر شما ثبت شد.')
                     except Product.DoesNotExist:
-                        messages.error(request, 'شما در حال نظر دادن در رابطه با کالایی هستید که وجود خارجی ندارد!')
+                        messages.error(request, 'متاسفانه چنین کالایی وجود ندارد. در نتیجه نظر شما را نمی توانیم ثبت '
+                                                'کنیم.')
     else:
-        messages.error(request, 'لطفا اول برادریتو ثابت کن و تو اکانت لاگین کن. بعدش نظر بده.')
+        messages.error(request, 'برای ارسال نظر ابتدا باید وارد حساب کاربری خود شوید.')
     return redirect(request.META.get('HTTP_REFERER'))
 
 

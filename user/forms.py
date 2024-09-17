@@ -26,7 +26,6 @@ class RegisterForm(forms.ModelForm):
 
 
 class InputValidator:
-    # validator of registration and ... input data
     @staticmethod
     def password_check(password):
         if len(password) < 6:  # check password is strong and at least 6 characters

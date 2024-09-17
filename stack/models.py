@@ -5,7 +5,7 @@ from user.models import User
 
 
 class Stack(models.Model):
-    sid = models.CharField(max_length=50, blank=True, verbose_name="شناسه خرمن")
+    sid = models.CharField(max_length=50, blank=True, verbose_name="شناسه سبد")
     created = models.DateTimeField(auto_now_add=True, verbose_name="ایجاد شده")
     belongs_to = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name="به نام")
     cost = models.IntegerField(default=0, verbose_name="شیتیل موردنیاز")  # total value (total price)
@@ -53,8 +53,7 @@ class Stack(models.Model):
 
 
 class TakenProduct(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="کالا") 
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="کالا")
     stack = models.ForeignKey(Stack, on_delete=models.CASCADE, verbose_name="خرمن")
     quantity = models.IntegerField(default=0, verbose_name="شمار")
     is_available = models.BooleanField(default=True, verbose_name="در دسترس؟")

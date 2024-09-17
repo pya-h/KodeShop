@@ -3,9 +3,9 @@
 <section class="section-content text-right  padding-y" style="direction:rtl;min-height:84vh">
 {% if request.GET.command == 'verification' %}
 	<div class="container mx-auto text-center alert alert-info" role="alert" style="max-width: 380px; margin-top:100px;">
-        یک ایمیل حاوی لینک فعال سازی به {{request.GET.email}} ارسال شد. برای تکمیل فرایند ثبت نام به ایمیل خود رجوع کنید...
+        یک ایمیل حاوی لینک فعال سازی به {{request.GET.email}} ارسال شد. برای تکمیل فرایند ثبت نام به ایمیل خود رجوع کنید.
         <br /><hr />
-        اگر اکانتت رو فعال کردی از <a href="{% url 'login' %}">اینجا وارد شو...</a>
+        اگر اکانت خود را فعال کرده اید، می توانید از <a href="{% url 'login' %}">اینجا وارد شوید.</a>
     </div>
 {% else %}
 <!-- ============================ COMPONENT LOGIN   ================================= -->
@@ -18,24 +18,23 @@
               {% csrf_token %}
               <div class="form-group">
                  <input type="text" class="form-control text-center" name="contact" placeholder="شماره تلفن یا ایمیل" >
-              </div> <!-- form-group// -->
+              </div>
               <div class="form-group">
                 <input type="password" class="form-control text-center" name="password" placeholder="رمزعبور" >
-              </div> <!-- form-group// -->
+              </div>
 
               <div class="form-group">
                 <a href="{% url 'forgot_password' %}" class="mx-auto px-3">فراموشی رمزعبور</a>
 
-              </div> <!-- form-group form-check .// -->
+              </div>
               <div class="form-group">
                   <button type="submit" class="btn btn-primary btn-block btn-shaking">برو!</button>
-              </div> <!-- form-group// -->
+              </div>
           </form>
-      </div> <!-- card-body.// -->
-    </div> <!-- card .// -->
+      </div>
+    </div>
 
      <p class="text-center mt-4">هنوز ثبت نام نکردی؟ <a href="{% url 'register' %}">ثبت نام کن</a></p>
      <br><br>
 {% endif %}
-<!-- ============================ COMPONENT LOGIN  END.// ================================= -->
 {% endblock %}

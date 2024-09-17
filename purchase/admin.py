@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.shortcuts import redirect
 from common.tools import MailingInterface
-from devshare.models import DevShare
 
 
 # TODO:
@@ -66,13 +65,6 @@ class OrderAdminPanel(admin.ModelAdmin):
                                                  {"name": order.buyer.fname, "order_key": order.key,
                                                   "reference_id": ref_id})
                     order.save()
-                    if DevShare.ShareCoefficient:
-                        try:
-                            dev_share = DevShare.objects.get(order=order)
-                            dev_share.verify()
-                            dev_share.save()
-                        except Exception as ex:
-                            print("Cannot retrieve developer share: ", ex)
                 else:
                     messages.info(request, "این سفارش قبلا تایید شده است.")
                     return redirect(request.path)

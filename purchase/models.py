@@ -21,7 +21,6 @@ ORDER_STATUS = {
 
 
 class Receipt(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, verbose_name='آیدی')
     reference_id = models.CharField(max_length=30, verbose_name='کد رهیگیری')  # *** WHAT TO SET ON MAX_LENGTH ??
     image = models.ImageField(upload_to='photos/transactions', blank=True, null=True, verbose_name='تصویر')
     amount = models.IntegerField(verbose_name="مقدار تراکنش")
@@ -39,7 +38,6 @@ class Transaction(models.Model):
     METHODS = (('reserve', 'رزرو'),
               ('zarinpal', 'زرین پال'),
               ('bank_portal', 'درگاه پرداخت بانکی'))
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, verbose_name='آیدی')
     VALIDATION_STATUS = (('pending', 'در دست بررسی'), ('valid', 'معتبر'), ('invalid', 'نامعتبر'))
     receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE, blank=True, null=True, verbose_name='رسید')
     validation = models.CharField(max_length=20, choices=VALIDATION_STATUS, default='pending', verbose_name='صحت تراکنش')
@@ -57,7 +55,6 @@ class Transaction(models.Model):
 
 
 class OrderReceiver(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, verbose_name='آیدی')
     related_to = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر مربوطه')
     # order = models.ForeignKey(Order, on_delete=models.CASCADE)
     # receiver identification
@@ -120,7 +117,8 @@ class Order(models.Model):
 
     # prices and costs
     cost = models.IntegerField(default=0, verbose_name='هزینه')  # total value (total price)
-    discounts = models.IntegerField(default=0, verbose_name='تخفیفی جات')  # sum of the amount of discounts in Money (not percentage)
+    discounts = models.IntegerField(default=0, verbose_name='تخفیفی جات')  # sum of the amount of discounts in Money
+    # (not percentage)
     shipping_cost = models.IntegerField(default=0, verbose_name='هزینه ارسال')
     must_be_paid = models.IntegerField(default=0, verbose_name='هزینه نهایی')
     seen = models.BooleanField(default=False, verbose_name='مشاهده توسط ادمین')
@@ -167,7 +165,6 @@ class Order(models.Model):
 
 
 class PurchasedItem(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, verbose_name='آیدی')
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='سفارش مربوطه')
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='مالک سفارش')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='کالا')
@@ -178,7 +175,7 @@ class PurchasedItem(models.Model):
     delivered = models.BooleanField(default=False, verbose_name='تحویل شده')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     date_updated = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ آخرین تغییر')
-    anything_wrong = models.CharField(max_length=50, blank=True, null=True, default="", verbose_name='مشکل در سفارش')
+    anything_wrong = models.CharField(max_length=128, blank=True, null=True, default="", verbose_name='مشکل در سفارش')
 
     class Meta:
         verbose_name = 'کالای سفارشی'
