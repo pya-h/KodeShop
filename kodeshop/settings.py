@@ -31,8 +31,10 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     # thirdparty apps:
     'admin_honeypot',
+    'ckeditor',
     # my apps
     'category',
+    'blog',
     'user',
     'store',
     'stack',
@@ -152,3 +154,20 @@ STATIC_ROOT = BASE_DIR / 'public'
 # USE_THOUSAND_SEPARATOR = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# CKEditor configs:
+CKEDITOR_UPLOAD_PATH = MEDIA_ROOT / 'posts/'
+CKEDITOR_IMAGE_BACKEND = "posts"
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_CONFIGS = {
+    'default':
+        {
+            'toolbar': 'full',
+            'width': 'auto',
+            'extraPlugins': ','.join([
+                'codesnippet',
+            ]),
+        },
+}
+
