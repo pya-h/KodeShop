@@ -155,22 +155,6 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# CKEditor configs:
-# CKEDITOR_UPLOAD_PATH = MEDIA_ROOT / 'posts/'
-# CKEDITOR_IMAGE_BACKEND = f'{MEDIA_URL}posts'
-# CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-# CKEDITOR_CONFIGS = {
-#     'default':
-#         {
-#             'toolbar': 'full',
-#             'width': 'auto',
-#             'extraPlugins': ','.join([
-#                 'codesnippet',
-#             ]),
-#         },
-# }
-
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': [
@@ -212,7 +196,6 @@ CKEDITOR_5_CONFIGS = {
         #     'highlight',    # Text highlighting options
         # ]),
         'imageUploadUrl': '/ckeditor5/upload/',  # Make sure this URL is set correctly
-        
         'style': {
             'definitions': [
                 {
@@ -240,6 +223,5 @@ CKEDITOR_5_CONFIGS = {
                 'backgroundColor': '#ffffff',
             }
         }
-            
     },
 }

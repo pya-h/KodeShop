@@ -2,7 +2,6 @@ from django.db import models
 import datetime
 from store.models import Product
 from user.models import User
-from uuid import uuid4
 from django.urls import reverse
 
 ORDER_STATUS = {

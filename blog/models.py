@@ -5,7 +5,7 @@ from user.models import User
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=256, blank=False, verbose_name='عنوان')
-    body = CKEditor5Field('Content', config_name='default')
+    body = CKEditor5Field('متن پست', config_name='default')
     is_visible = models.BooleanField(default=True, verbose_name='نمایش دادن در وبلاگ')
     author = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 

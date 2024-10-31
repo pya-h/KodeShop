@@ -1,4 +1,3 @@
-import uuid
 from store.models import Product
 from django.db import models
 from user.models import User

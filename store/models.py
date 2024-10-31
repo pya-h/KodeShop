@@ -2,7 +2,6 @@ from os.path import join
 from django.db import models
 from category.models import Category
 from django.urls import reverse
-import uuid
 from user.models import User
 from django.db.models import Avg, Count
 
