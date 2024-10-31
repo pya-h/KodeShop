@@ -1,8 +1,9 @@
 # views.py
 from django.shortcuts import render
 from .models import BlogPost
+from django.shortcuts import render, redirect, get_object_or_404
 
 
-def post_list(request):
-    posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'post.html', {'post': post})
+def show_post(request, post_id: int):
+    post = get_object_or_404(BlogPost, id=post_id)
+    return render(request, 'blogs/post.html', {'post': post})

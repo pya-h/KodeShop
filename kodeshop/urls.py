@@ -18,6 +18,7 @@ urlpatterns = [
     path('about/', views.about_us, name='about'),
     path('contact/', contact_us, name='contact'),
     path('messaging/', include('messaging.urls')),
+    path('blogs/', include('blog.urls')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     path('ckeditor5/', include('django_ckeditor_5.urls')),

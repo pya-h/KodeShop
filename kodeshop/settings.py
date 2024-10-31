@@ -159,28 +159,49 @@ CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': [
             'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', 'link',
-            'alignment', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight',
-            'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'insertTable', 
+            'alignment', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight',
+            'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'insertTable',
             'mediaEmbed', '|', 'undo', 'redo'
         ],
-        'height': 400,
+        'height': '100%',
         'width': '100%',
+        'fontFamily': {
+            'options': [
+                'default',
+                'Arial, sans-serif',
+                'Courier New, Courier, monospace',
+                'Georgia, serif',
+                'Times New Roman, Times, serif',
+                'Verdana, Geneva, sans-serif'
+            ],
+            'supportAllValues': True
+        },
+        'fontSize': {
+            'options': [
+                'default',
+                '8px', '10px', '12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px', '36px'
+            ],
+            'supportAllValues': True
+        },
         'fontColor': {
             'columns': 5,
             'colors': [
-                { 'color': 'hsl(0, 75%, 60%)', 'label': 'Red' },
-                { 'color': 'hsl(30, 75%, 60%)', 'label': 'Orange' },
-                # ... more colors
+                {'color': 'rgb(0, 0, 0)', 'label': 'Black'},
+                {'color': 'hsl(0, 75%, 60%)', 'label': 'Red'},
+                {'color': 'hsl(30, 75%, 60%)', 'label': 'Orange'},
+                {'color': 'rgb(255, 255, 255)', 'label': 'White'},
+                {'color': 'rgb(0, 255, 0)', 'label': 'Green'},
+                {'color': 'rgb(0, 0, 255)', 'label': 'Blue'},
             ]
-        },
-        'fontSize': {
-            'options': [9, 11, 13, 'default', 17, 19, 21],
-            'supportAllValues': True
         },
         'highlight': {
             'options': [
-                { 'model': 'yellowMarker', 'class': 'marker-yellow', 'title': 'Yellow Marker', 'color': 'var(--ck-highlight-marker-yellow)' },
-                # ... other highlights
+                {'model': 'yellowMarker', 'class': 'marker-yellow', 'title': 'Yellow Marker',
+                 'color': 'var(--ck-highlight-marker-yellow)'},
+                {'model': 'greenMarker', 'class': 'marker-green', 'title': 'Green Marker',
+                 'color': 'var(--ck-highlight-marker-green)'},
+                {'model': 'blueMarker', 'class': 'marker-blue', 'title': 'Blue Marker',
+                 'color': 'var(--ck-highlight-marker-blue)'},
             ]
         },
         'mediaEmbed': {
@@ -202,7 +223,7 @@ CKEDITOR_5_CONFIGS = {
                     'name': 'Custom Title',
                     'element': 'h2',
                     'classes': ['custom-title'],
-                    'attributes': {'style': 'color: blue;'}
+                    'attributes': {'style': 'color: black;'}
                 },
                 {
                     'name': 'Callout Box',
