@@ -1,11 +1,11 @@
 from django.db import models
-from ckeditor_uploader.fields import RichTextUploadingField
+from django_ckeditor_5.fields import CKEditor5Field
 from user.models import User
 
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=256, blank=False, verbose_name='عنوان')
-    body = RichTextUploadingField(verbose_name='متن پست')
+    body = CKEditor5Field('Content', config_name='default')
     is_visible = models.BooleanField(default=True, verbose_name='نمایش دادن در وبلاگ')
     author = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 

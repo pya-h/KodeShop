@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     # thirdparty apps:
     'admin_honeypot',
-    'ckeditor',
+    'django_ckeditor_5',
     # my apps
     'category',
     'blog',
@@ -150,24 +150,96 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-STATIC_ROOT = BASE_DIR / 'public'
+STATIC_ROOT = BASE_DIR / 'static'
 # USE_THOUSAND_SEPARATOR = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # CKEditor configs:
-CKEDITOR_UPLOAD_PATH = MEDIA_ROOT / 'posts/'
-CKEDITOR_IMAGE_BACKEND = "posts"
-CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-CKEDITOR_CONFIGS = {
-    'default':
-        {
-            'toolbar': 'full',
-            'width': 'auto',
-            'extraPlugins': ','.join([
-                'codesnippet',
-            ]),
-        },
-}
+# CKEDITOR_UPLOAD_PATH = MEDIA_ROOT / 'posts/'
+# CKEDITOR_IMAGE_BACKEND = f'{MEDIA_URL}posts'
+# CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+# CKEDITOR_CONFIGS = {
+#     'default':
+#         {
+#             'toolbar': 'full',
+#             'width': 'auto',
+#             'extraPlugins': ','.join([
+#                 'codesnippet',
+#             ]),
+#         },
+# }
 
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', 'link',
+            'alignment', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight',
+            'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'insertTable', 
+            'mediaEmbed', '|', 'undo', 'redo'
+        ],
+        'height': 400,
+        'width': '100%',
+        'fontColor': {
+            'columns': 5,
+            'colors': [
+                { 'color': 'hsl(0, 75%, 60%)', 'label': 'Red' },
+                { 'color': 'hsl(30, 75%, 60%)', 'label': 'Orange' },
+                # ... more colors
+            ]
+        },
+        'fontSize': {
+            'options': [9, 11, 13, 'default', 17, 19, 21],
+            'supportAllValues': True
+        },
+        'highlight': {
+            'options': [
+                { 'model': 'yellowMarker', 'class': 'marker-yellow', 'title': 'Yellow Marker', 'color': 'var(--ck-highlight-marker-yellow)' },
+                # ... other highlights
+            ]
+        },
+        'mediaEmbed': {
+            'previewsInData': True,
+            'providers': [
+                'youtube', 'vimeo', 'dailymotion', 'twitch', 'facebook', 'instagram'
+            ]
+        },
+        # 'extraPlugins': ','.join([
+        #     'uploadimage',  # Image upload support
+        #     'font',         # Font styling options
+        #     'alignment',    # Text alignment options
+        #     'highlight',    # Text highlighting options
+        # ]),
+        'imageUploadUrl': '/ckeditor5/upload/',  # Make sure this URL is set correctly
+        
+        'style': {
+            'definitions': [
+                {
+                    'name': 'Custom Title',
+                    'element': 'h2',
+                    'classes': ['custom-title'],
+                    'attributes': {'style': 'color: blue;'}
+                },
+                {
+                    'name': 'Callout Box',
+                    'element': 'div',
+                    'classes': ['callout-box'],
+                    'attributes': {'style': 'border: 1px solid #ccc; padding: 10px;'}
+                }
+            ]
+        },
+        'table': {
+            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells'],
+            'tableToolbar': ['insertTable', 'tableProperties', 'tableCellProperties'],
+        },
+        'tableProperties': {
+            'defaultProperties': {
+                'borderColor': '#000000',
+                'borderWidth': '1px',
+                'backgroundColor': '#ffffff',
+            }
+        }
+            
+    },
+}
