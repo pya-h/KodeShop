@@ -52,8 +52,8 @@
                     <div class="row mt-1"  style="border: 1px dashed green; border-radius: 8px">
                         <a href="/" class="btn {% if request.path == '/'%}btn-outline-success{% endif %} col">خانه</a>
                         <a href="{% url 'store' %}" class="btn {% if '/store/' in request.path or '/stack/' in request.path %}btn-outline-success{% endif %} col">فروشگاه</a>
+                        <a href="{% url 'blogs' %}" class="btn {% if request.path == '/blogs/' %}btn-outline-success{% endif %} col">بلاگ</a>
                         <a href="{% url 'about' %}" class="btn {% if request.path == '/about/' %}btn-outline-success{% endif %} col">درباره ما</a>
-                        <a href="{% url 'contact' %}" class="btn {% if request.path == '/contact/' %}btn-outline-success{% endif %} col">تماس</a>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md col-sm-12 col-12 col my-1 mx-auto">
@@ -61,13 +61,13 @@
                         {% csrf_token %}
                         <div class="input-group">
                             <div class="input-group-append">
-                              <button class="btn search-button" style="border-radius: 0 1rem 1rem 0;" type="submit">
+                              <button class="btn search-button" style="border-radius: 0 10px 10px 0;" type="submit">
                                 <i class="fa fa-search"></i>
                               </button>
                             </div>
                             <input type="text" required
                                    class="form-control text-center text-dark search-textbox"
-                                   style="border-radius: 1rem 0 0 1rem;"
+                                   style="border-radius: 10px 0 0 10px;"
                                    name="search_text"
                                    placeholder="بگرد...">
                         </div>

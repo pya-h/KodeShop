@@ -18,8 +18,14 @@
                     {% for product in popular_products %}
                         {% if product.stock and product.available %}
                             <div class="col-md-3">
-                                <div class="card expand-opacity-animation card-product-grid">
-                                    <a href="{{ product.url }}" class="img-wrap"> <img src="{{product.image.url}}"> </a>
+                                <div class="card expand-opacity-animation card-product-grid" style="border-radius: 10px;">
+                                    <a href="{{ product.url }}" class="img-wrap">
+                                        <img style="width: 100%"
+                                                src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
+                                                onerror="this.onerror=null; this.src='{% static 'img/no-image.jpg' %}"
+                                                alt="خطا در بارگذاری تصویر"
+                                        />
+                                    </a>
                                     <figcaption class="info-wrap">
                                         <a href="{{ product.url }}" class="title text-center">{{ product }}</a>
                                         <div class="price mt-1 text-center text-primary">{{ product.price | intcomma:False }} تومن</div> <!-- price-wrap.// -->

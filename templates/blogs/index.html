@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+    <!-- ========================= SECTION  ========================= -->
+    <section class="section-name padding-y-sm">
+        <div class="container">
+            {% include 'includes/toast.html' %}
+            <header class="section-heading">
+                <h3 class="text-right section-title">{{ page_title }}</h3>
+            </header><!-- sect-heading -->
+
+            {% if blogs %}
+                <div class="row">
+                    {% for blog in blogs %}
+                        {% if blog.is_visible %}
+                            <div class="col-md-3 ">
+                                <div class="card expand-opacity-animation card-product-grid h-100">
+                                    <a href="{{ blog.url }}" class="img-wrap">
+                                        <img style="width: 100%"
+                                                src="{% if blog.thumbnail %}{{ blog.thumbnail.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
+                                                onerror="this.onerror=null; this.src='{% static 'img/no-image.jpg' %}"
+                                                alt="خطا در بارگذاری تصویر"
+                                        />
+                                    </a>
+                                    <figcaption class="info-wrap">
+                                        <a href="{{ blog.url }}" class="title text-center">{{ blog.title }}</a>
+                                        <div class="mt-1 text-right" style="font-size: 75%">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;{% if blog.summary %}{{ blog.summary }}{% else %}برای مشاعده محتوا کلیک کنید.{% endif %}
+                                        </div> <!-- price-wrap.// -->
+
+                                    </figcaption>
+                                </div>
+                            </div> <!-- col.// -->
+                        {% endif %}
+                    {% endfor %}
+                </div> <!-- row.// -->
+            {% else %}
+
+            {% endif %}
+        </div><!-- container // -->
+    </section>
+    <!-- ========================= SECTION  END// ========================= -->
+
+{% endblock %}

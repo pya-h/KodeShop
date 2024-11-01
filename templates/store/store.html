@@ -106,10 +106,14 @@
                             {% for product in products %}
                                 {% if product.stock and product.available %}
                                     <div class="col-lg-4 col-md-6">
-                                        <figure class="card card-product-grid">
+                                        <figure class="card card-product-grid" style="border-radius: 10px;">
                                             <div class="img-wrap expand-opacity-animation">
                                                 <a href="{{ product.url }}">
-                                                    <img src={{ product.image.url }}>
+                                                    <img style="width: 100%"
+                                                            src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
+                                                            onerror="this.onerror=null; this.src='{% static 'img/no-image.jpg' %}"
+                                                            alt="خطا در بارگذاری تصویر"
+                                                    />
                                                 </a>
                                             </div>
                                             <figcaption class="info-wrap">
