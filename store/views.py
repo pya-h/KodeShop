@@ -7,12 +7,16 @@ from .forms import ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+MAX_ITEMS_IN_PAGE = 30
+
 
 def store(request, category_filter=None):
     max_price = min_price = 0
     category_fa = None
+    page = request.GET.get('page', 0)  # TODO: What about post requests:
+
     try:
-        products = Product.objects.all()  # .filter(available=True)
+        products = Product.objects.filter()  # .filter(available=True)
         if category_filter:
             obj_expected_categories = get_object_or_404(Category, slug=category_filter)
             category_fa = obj_expected_categories.name_fa
@@ -39,9 +43,11 @@ def store(request, category_filter=None):
         print(ex.__str__())
         products = []
 
+    if page * MAX_ITEMS_IN_PAGE >= products.count():
+        page = products // MAX_ITEMS_IN_PAGE - 1;
     context = {
-        'products': products,
-        'products_count': products.count if products else 0,
+        'products': products[page*MAX_ITEMS_IN_PAGE:(page+1)*MAX_ITEMS_IN_PAGE],
+        'products_count': products.count() if products else 0,
         'current_category': category_fa,
         'category_filter': category_filter,
         'max_price': max_price,
@@ -96,5 +102,3 @@ def post_review(request, product_id):
     else:
         messages.error(request, 'برای ارسال نظر ابتدا باید وارد حساب کاربری خود شوید.')
     return redirect(request.META.get('HTTP_REFERER'))
-
-
