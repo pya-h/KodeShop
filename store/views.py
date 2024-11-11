@@ -6,6 +6,8 @@ from .models import Product, Review, Gallery
 from .forms import ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+
 
 MAX_ITEMS_IN_PAGE = 30
 
@@ -14,14 +16,15 @@ def store(request, category_filter=None):
     max_price = min_price = 0
     category_fa = None
     page = request.GET.get('page', 0)  # TODO: What about post requests:
+    filters = Q()
 
     try:
-        products = Product.objects.filter()  # .filter(available=True)
+
         if category_filter:
             obj_expected_categories = get_object_or_404(Category, slug=category_filter)
             category_fa = obj_expected_categories.name_fa
             if obj_expected_categories:
-                products = products.filter(category=obj_expected_categories)
+                filters &= Q(category=obj_expected_categories)
 
         if request.method == "POST":
             try:
@@ -35,23 +38,25 @@ def store(request, category_filter=None):
                 max_price = 0
 
             if min_price > 0:
-                products = products.filter(price__gte=min_price)
+                filters &= Q(price__gte=min_price)
             if max_price > 0:
-                products = products.filter(price__lte=max_price)
+                filters &= Q(price__lte=max_price)
 
     except Exception as ex:
         print(ex.__str__())
         products = []
 
-    if page * MAX_ITEMS_IN_PAGE >= products.count():
-        page = products // MAX_ITEMS_IN_PAGE - 1;
+    products = Product.objects.filter(filters)[page*MAX_ITEMS_IN_PAGE:(page+1)*MAX_ITEMS_IN_PAGE]
+    page_count = int(Product.objects.count() / MAX_ITEMS_IN_PAGE) + 1
     context = {
         'products': products[page*MAX_ITEMS_IN_PAGE:(page+1)*MAX_ITEMS_IN_PAGE],
         'products_count': products.count() if products else 0,
         'current_category': category_fa,
         'category_filter': category_filter,
         'max_price': max_price,
-        'min_price': min_price
+        'min_price': min_price,
+        'page': page + 1,
+        'page_count': page_count
     }
 
     return render(request, 'store/store.html', context)

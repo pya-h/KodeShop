@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load humanize %}
+{% load filters %}
 
 {% block content %}
     <!-- ========================= SECTION CONTENT ========================= -->
@@ -163,5 +164,14 @@
             </div>
         </div>
     </section>
+    {% if page_count > page %}
+        {% for i in page_count|times %}
+            {% if i != page %}
+                Outlines Pagination buttons
+            {% else %}
+                Filled button
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     <!-- ========================= SECTION CONTENT END// ========================= -->
 {%  endblock %}
