@@ -7,15 +7,28 @@ from .forms import ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from math import ceil as number_ceil
 
 
 MAX_ITEMS_IN_PAGE = 30
-
+MAX_PAGINATION_BUTTON_RANGE = 3
 
 def store(request, category_filter=None):
     max_price = min_price = 0
     category_fa = None
-    page = request.GET.get('page', 0)  # TODO: What about post requests:
+    try:
+        page = int(request.GET.get('page', 1))
+        if page < 1:
+            raise ValueError('page not positive!')
+    except ValueError:
+        page = 1
+    try:
+        items_count_limit = int(request.GET.get('items', MAX_ITEMS_IN_PAGE))
+        if items_count_limit < 1:
+            raise ValueError('limit not positive!')
+    except ValueError:
+        items_count_limit = MAX_ITEMS_IN_PAGE
+
     filters = Q()
 
     try:
@@ -46,17 +59,22 @@ def store(request, category_filter=None):
         print(ex.__str__())
         products = []
 
-    products = Product.objects.filter(filters)[page*MAX_ITEMS_IN_PAGE:(page+1)*MAX_ITEMS_IN_PAGE]
-    page_count = int(Product.objects.count() / MAX_ITEMS_IN_PAGE) + 1
+    total_items_count = Product.objects.count()
+    page_count = number_ceil(total_items_count / items_count_limit)
+    if page > page_count:
+        page = page_count
+    products = Product.objects.filter(filters)[(page-1)*items_count_limit:page*items_count_limit]
     context = {
-        'products': products[page*MAX_ITEMS_IN_PAGE:(page+1)*MAX_ITEMS_IN_PAGE],
+        'products': products,
         'products_count': products.count() if products else 0,
         'current_category': category_fa,
         'category_filter': category_filter,
         'max_price': max_price,
         'min_price': min_price,
-        'page': page + 1,
-        'page_count': page_count
+        'page': page,
+        'items_limit': min(items_count_limit, total_items_count),
+        'page_count': page_count,
+        'pagination_range': MAX_PAGINATION_BUTTON_RANGE,
     }
 
     return render(request, 'store/store.html', context)

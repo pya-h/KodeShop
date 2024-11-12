@@ -150,28 +150,61 @@
                     {% endif %}
 
 
-                    <!--
-                    ****** ADD PAGINATION TO THE STORE SECTION **********
-                    <nav class="mt-4" aria-label="Page navigation sample">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#">قبلی</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
-                        </ul>
-                    </nav>-->
+                    <!-- Pagination -->
+                    {% if products %}
+                        <nav class="mt-4" aria-label="Page navigation sample">
+                            <ul dir="ltr" class="pagination justify-content-center">
+                                {% if page > 1 %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page|add:-1 }}&items={{ items_limit }}">قبلی</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">قبلی</a>
+                                    </li>
+                                {% endif %}
+                                {% if page|add:-1 > pagination_range %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=1&items={{ items_limit }}">1</a>
+                                    </li>
+                                    {% if page|add:-2 > pagination_range %}
+                                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                                    {% endif %}
+                                {% endif %}
+                                {% for i in page_count|nearpage:page %}
+                                    {% if i == page %}
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#">{{ i }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ i }}&items={{ items_limit }}">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page < page_count %}
+                                    {% if page|add:pagination_range < page_count %}
+                                        {% if page|add:1|add:pagination_range < page_count %}
+                                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                                        {% endif %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_count }}&items={{ items_limit }}">{{ page_count }}</a>
+                                        </li>
+                                    {%  endif %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page|add:1 }}&items={{ items_limit }}">بعدی</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">بعدی</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% endif %}
                 </main>
             </div>
         </div>
     </section>
-    {% if page_count > page %}
-        {% for i in page_count|times %}
-            {% if i != page %}
-                Outlines Pagination buttons
-            {% else %}
-                Filled button
-            {% endif %}
-        {% endfor %}
-    {% endif %}
     <!-- ========================= SECTION CONTENT END// ========================= -->
 {%  endblock %}

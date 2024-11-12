@@ -1,8 +1,20 @@
 from django import template
+from ..views import MAX_PAGINATION_BUTTON_RANGE
 
 register = template.Library()
 
 
 @register.filter
 def times(number):
-    return range(number)
+    return range(1, number + 1)
+
+
+@register.filter
+def nearpage(pages, page=1, limit=MAX_PAGINATION_BUTTON_RANGE):
+    return range(page - limit if page > limit + 1 else 1, page + limit + 1 if page + limit < pages else pages + 1)
+
+
+@register.filter
+def isplit(str_numbers):
+    return [int(x) for x in str_numbers.split()]
+
