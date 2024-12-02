@@ -7,32 +7,14 @@ from .forms import ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from math import ceil as number_ceil
-
-
-MAX_ITEMS_IN_PAGE = 30
-MAX_PAGINATION_BUTTON_RANGE = 3
+from kodeshop.utils import PaginationParams
 
 def store(request, category_filter=None):
     max_price = min_price = 0
     category_fa = None
-    try:
-        page = int(request.GET.get('page', 1))
-        if page < 1:
-            raise ValueError('page not positive!')
-    except ValueError:
-        page = 1
-    try:
-        items_count_limit = int(request.GET.get('items', MAX_ITEMS_IN_PAGE))
-        if items_count_limit < 1:
-            raise ValueError('limit not positive!')
-    except ValueError:
-        items_count_limit = MAX_ITEMS_IN_PAGE
-
     filters = Q()
 
     try:
-
         if category_filter:
             obj_expected_categories = get_object_or_404(Category, slug=category_filter)
             category_fa = obj_expected_categories.name_fa
@@ -54,16 +36,11 @@ def store(request, category_filter=None):
                 filters &= Q(price__gte=min_price)
             if max_price > 0:
                 filters &= Q(price__lte=max_price)
-
     except Exception as ex:
         print(ex.__str__())
-        products = []
 
-    total_items_count = Product.objects.count()
-    page_count = number_ceil(total_items_count / items_count_limit)
-    if page > page_count:
-        page = page_count
-    products = Product.objects.filter(filters)[(page-1)*items_count_limit:page*items_count_limit]
+    pagination = PaginationParams(request, Product, filters)
+    products = pagination.get_items('created_at', order_descending=True)
     context = {
         'products': products,
         'products_count': products.count() if products else 0,
@@ -71,10 +48,7 @@ def store(request, category_filter=None):
         'category_filter': category_filter,
         'max_price': max_price,
         'min_price': min_price,
-        'page': page,
-        'items_limit': min(items_count_limit, total_items_count),
-        'page_count': page_count,
-        'pagination_range': MAX_PAGINATION_BUTTON_RANGE,
+        'pagination': pagination,
     }
 
     return render(request, 'store/store.html', context)

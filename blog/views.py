@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from .models import BlogPost
 from django.shortcuts import render, get_object_or_404
-
+from kodeshop.utils import PaginationParams
 
 def show_post(request, post_id: int):
     post = get_object_or_404(BlogPost, id=post_id)
@@ -10,5 +10,6 @@ def show_post(request, post_id: int):
 
 
 def list_blogs(request):
-    blogs = BlogPost.objects.all()
+    pagination = PaginationParams(request, BlogPost)
+    blogs = pagination.get_items('created_at', order_descending=True)
     return render(request, 'blogs/index.html', {'blogs': blogs})

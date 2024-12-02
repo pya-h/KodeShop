@@ -1,0 +1,8 @@
+*/__pycache__/
+*__pycache__*
+*/migrations/
+static/
+*.sqlite3
+.env
+.idea/
+.vscode/

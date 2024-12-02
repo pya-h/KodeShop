@@ -1,5 +1,6 @@
 from django import template
-from ..views import MAX_PAGINATION_BUTTON_RANGE
+from kodeshop.utils import PaginationParams
+
 
 register = template.Library()
 
@@ -10,7 +11,7 @@ def times(number):
 
 
 @register.filter
-def nearpage(pages, page=1, limit=MAX_PAGINATION_BUTTON_RANGE):
+def nearpage(pages, page=1, limit=PaginationParams.maxButtonsRange):
     return range(page - limit if page > limit + 1 else 1, page + limit + 1 if page + limit < pages else pages + 1)
 
 
