@@ -12,4 +12,4 @@ def show_post(request, post_id: int):
 def list_blogs(request):
     pagination = PaginationParams(request, BlogPost)
     blogs = pagination.get_items('created_at', order_descending=True)
-    return render(request, 'blogs/index.html', {'blogs': blogs})
+    return render(request, 'blogs/index.html', {'blogs': blogs, 'pagination': pagination,})

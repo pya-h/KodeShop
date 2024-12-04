@@ -149,58 +149,9 @@
                         </div>
                     {% endif %}
 
-
                     <!-- Pagination -->
                     {% if products %}
-                        <nav class="mt-4" aria-label="Page navigation sample">
-                            <ul dir="ltr" class="pagination justify-content-center">
-                                {% if pagination.page > 1 %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page={{ pagination.page|add:-1 }}&items={{ pagination.items_limit }}">قبلی</a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item disabled">
-                                        <a class="page-link">قبلی</a>
-                                    </li>
-                                {% endif %}
-                                {% if pagination.page|add:-1 > pagination.maxButtonsRange %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=1&items={{ pagination.items_limit }}">1</a>
-                                    </li>
-                                    {% if pagination.page|add:-2 > pagination.maxButtonsRange %}
-                                        <li class="page-item disabled"><a class="page-link">...</a></li>
-                                    {% endif %}
-                                {% endif %}
-                                {% for i in pagination.page_count|nearpage:pagination.page %}
-                                    {% if i == pagination.page %}
-                                        <li class="page-item active">
-                                            <a class="page-link" href="#">{{ i }}</a>
-                                        </li>
-                                    {% else %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ i }}&items={{ pagination.items_limit }}">{{ i }}</a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if pagination.page < pagination.page_count %}
-                                    {% if pagination.page|add:pagination.maxButtonsRange < pagination.page_count %}
-                                        {% if pagination.page|add:1|add:pagination.maxButtonsRange < pagination.page_count %}
-                                            <li class="page-item disabled"><a class="page-link">...</a></li>
-                                        {% endif %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ pagination.page_count }}&items={{ pagination.items_limit }}">{{ pagination.page_count }}</a>
-                                        </li>
-                                    {%  endif %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page={{ pagination.page|add:1 }}&items={{ pagination.items_limit }}">بعدی</a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item disabled">
-                                        <a class="page-link">بعدی</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
+                        {% include 'includes/pagination-menu.html' %}
                     {% endif %}
                 </main>
             </div>
