@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     # my apps
     'category',
-    'blog',
+    'post',
     'user',
     'store',
     'stack',
@@ -161,7 +161,7 @@ CKEDITOR_5_CONFIGS = {
             'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', 'link',
             'alignment', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight',
             'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'insertTable',
-            'mediaEmbed', '|', 'undo', 'redo'
+            'insertVideo', 'mediaEmbed', '|', 'undo', 'redo'
         ],
         'height': '100%',
         'width': '100%',
@@ -206,8 +206,9 @@ CKEDITOR_5_CONFIGS = {
         },
         'mediaEmbed': {
             'previewsInData': True,
+            'uploadUrl': '/ckeditor5/upload-video/',
             'providers': [
-                'youtube', 'vimeo', 'dailymotion', 'twitch', 'facebook', 'instagram'
+                'youtube.com', 'vimeo', 'dailymotion', 'twitch', 'facebook', 'instagram'
             ]
         },
         # 'extraPlugins': ','.join([
@@ -216,7 +217,7 @@ CKEDITOR_5_CONFIGS = {
         #     'alignment',    # Text alignment options
         #     'highlight',    # Text highlighting options
         # ]),
-        'imageUploadUrl': '/ckeditor5/upload/',  # Make sure this URL is set correctly
+        'imageUploadUrl': '/ckeditor5/upload/',
         'style': {
             'definitions': [
                 {

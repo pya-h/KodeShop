@@ -52,7 +52,7 @@
                     <div class="row mt-1"  style="border: 1px dashed green; border-radius: 8px">
                         <a href="/" class="btn {% if request.path == '/'%}btn-outline-success{% endif %} col">خانه</a>
                         <a href="{% url 'store' %}" class="btn {% if '/store/' in request.path or '/stack/' in request.path %}btn-outline-success{% endif %} col">فروشگاه</a>
-                        <a href="{% url 'blogs' %}" class="btn {% if request.path == '/blogs/' %}btn-outline-success{% endif %} col">بلاگ</a>
+                        <a href="{% url 'blogs' %}" class="btn {% if '/posts' in request.path %}btn-outline-success{% endif %} col">بلاگ</a>
                         <a href="{% url 'about' %}" class="btn {% if request.path == '/about/' %}btn-outline-success{% endif %} col">درباره ما</a>
                     </div>
                 </div>

@@ -40,3 +40,16 @@ def search(request):
 
 def about_us(request):
     return render(request, 'us/about.html')
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+
+@csrf_exempt
+def upload_video(request):
+    if request.method == 'POST' and request.FILES.get('upload'):
+        video = request.FILES['upload']
+        save_path = default_storage.save(f'videos/{video.name}', video)
+        video_url = default_storage.url(save_path)
+        return JsonResponse({'url': video_url})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
