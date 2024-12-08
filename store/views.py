@@ -13,7 +13,6 @@ def store(request, category_filter=None):
     max_price = min_price = 0
     category_fa = None
     filters = Q()
-
     try:
         if category_filter:
             obj_expected_categories = get_object_or_404(Category, slug=category_filter)

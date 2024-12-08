@@ -1,8 +1,8 @@
-<!-- templates/post_list.html -->
+<!-- templates/blog.html -->
 {% extends 'layout.html' %}
 <style>
     /* static/css/styles.css */
-    .post {
+    .blog {
         padding: 20px;
         border: 1px solid #ddd;
         border-radius: 5px;
@@ -10,11 +10,11 @@
         background-color: #f9f9f9;
     }
 
-    .post h2 {
+    .blog h2 {
         color: #333;
     }
 
-    .post .content {
+    .blog .content {
         font-size: 1.1em;
         line-height: 1.6;
     }
@@ -24,25 +24,24 @@
         <div class="container">
             <div style="border-radius: 15px" class="card my-5 text-center">
                 <div class="col">
-                    <div class="post">
+                    <div class="blog">
                         <div class="card-header py-3 row">
                             <div class="text-center mx-auto px-5">
-                                <h2>{{ post.title }}</h2>
+                                <h2>{{ blog.title }}</h2>
                                 <hr class="mx-auto"/>
-                                <h5 class="py-3">نویسنده: {{ post.author }}</h5>
+                                <h5 class="py-3">نویسنده: {{ blog.author }}</h5>
                             </div>
                         </div>
                         <div class="card-body">
 
                             <div class="content">
-                                {{ post.body|safe }}  <!-- Renders HTML content safely -->
+                                {{ blog.body|safe }}  <!-- Renders HTML content safely -->
                             </div>
                         </div>
                         <div class="card-footer pt-5">
-                            <p>نوشته شده توسط {{ post.author }}</p>
-                            <p>{{ post.created_at|date:"F j, Y, g:i a" }}</p>
+                            <p>نوشته شده توسط {{ blog.author }}</p>
+                            <p>{{ blog.created_at|date:"F j, Y, g:i a" }}</p>
                         </div>
-
                     </div>
                 </div> <!-- row.// -->
             </div> <!-- card.// -->

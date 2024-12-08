@@ -7,28 +7,23 @@
     <!-- ========================= SECTION  ========================= -->
     <section class="section-name padding-y-sm">
         <div class="container">
-            {% include 'includes/toast.html' %}
-            <header class="section-heading">
-                <h3 class="text-right section-title">{{ page_title }}</h3>
-            </header><!-- sect-heading -->
-
-            {% if blogs %}
+            {% if posts %}
                 <div class="row">
-                    {% for blog in blogs %}
-                        {% if blog.is_visible %}
+                    {% for post in posts %}
+                        {% if post.is_visible %}
                             <div class="col-md-3 ">
                                 <div class="card expand-opacity-animation card-product-grid h-100">
-                                    <a href="{{ blog.url }}" class="img-wrap">
+                                    <a href="{{ post.url }}" class="img-wrap">
                                         <img style="width: 100%"
-                                                src="{% if blog.thumbnail %}{{ blog.thumbnail.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
+                                                src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
                                                 onerror="this.onerror=null; this.src='{% static 'img/no-image.jpg' %}'"
                                                 alt="خطا در بارگذاری تصویر"
                                         />
                                     </a>
                                     <figcaption class="info-wrap">
-                                        <a href="{{ blog.url }}" class="title text-center">{{ blog.title }}</a>
+                                        <a href="{{ post.url }}" class="title text-center">{{ post.title }}</a>
                                         <div class="mt-1 text-right" style="font-size: 75%">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;{% if blog.summary %}{{ blog.summary }}{% else %}برای مشاعده محتوا کلیک کنید.{% endif %}
+                                            &nbsp;&nbsp;&nbsp;&nbsp;{% if post.summary %}{{ post.summary }}{% else %}برای مشاعده محتوا کلیک کنید.{% endif %}
                                         </div> <!-- price-wrap.// -->
 
                                     </figcaption>
@@ -39,7 +34,13 @@
                 </div> <!-- row.// -->
                 {% include 'includes/pagination-menu.html' %}
             {% else %}
-
+                <div class="row">
+                    <div class="card-body text-center badge bg-gradient-green bg-primary my-5 py-5">
+                        <h2>فعلاً پستی وجود ندارد.</h2>
+                        <hr />
+                        <a href="{% url 'home' %}" class="btn btn-outline-warning">صفحه اصلی</a>
+                    </div>
+                </div>
             {% endif %}
         </div><!-- container // -->
     </section>

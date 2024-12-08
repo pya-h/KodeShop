@@ -32,9 +32,13 @@ class BlogPost(PostBase):
 
 
 class VideoPost(PostBase):
-    thumbnail = models.ImageField(upload_to='posts/videos', blank=True, null=True,  verbose_name='تصویر پیش نمایش')
+    thumbnail = models.ImageField(upload_to='posts/videos/thumbnails', blank=True, null=True, verbose_name='تصویر پیش نمایش')
     caption = models.TextField(blank=True, null=True, verbose_name='کپشن ویدیو')
-
+    original_video = models.FileField(upload_to='videos/', verbose_name='فایل ویدیو (کیفیت اصلی) *')
+    low_quality_video = models.FileField(upload_to='videos/low/', blank=True, null=True,
+                                         verbose_name='نسخه کیفیت پایین ویدیو (اختیاری)')
+    medium_quality_video = models.FileField(upload_to='videos/medium/', blank=True, null=True,
+                                            verbose_name='نسخه کیفیت متوسط ویدیو (اختیاری)')
     class Meta:
         verbose_name = 'ویدیو بلاگ'
         verbose_name_plural = 'ویدیو بلاگ'

@@ -142,9 +142,14 @@
                         </div>
                     {% else %}
                         <div class="row">
-                            <div class="card-body text-center">
-                                <h3>کالایی یافت نشد.</h3>
-                                <a href="{% url 'store' %}" class="btn btn-secondary">همه کالاها</a>
+                            <div class="card-body text-center badge badge-light">
+                                <h2>فعلاً کالایی در دسترس نیست.</h2>
+                                
+                                {%  if pagination.total_items_count > 0 %}
+                                    <hr /><a href="{% url 'store' %}" class="btn btn-secondary">همه کالاها</a>
+                                {% else %}
+                                    <p style="font-size: 200%" class="badge badge-warning bg-gradient-orange">در اسرع وقت لیست کالاهایمان را به روز می کنیم ... لطفا با ما همراه باشید.</p>
+                                {% endif %}
                             </div>
                         </div>
                     {% endif %}
