@@ -7,41 +7,79 @@
     <!-- ========================= SECTION  ========================= -->
     <section class="section-name padding-y-sm">
         <div class="container">
-            {% if posts %}
-                <div class="row">
-                    {% for post in posts %}
-                        {% if post.is_visible %}
-                            <div class="col-md-3 ">
-                                <div class="card expand-opacity-animation card-product-grid h-100">
-                                    <a href="{{ post.url }}" class="img-wrap">
-                                        <img style="width: 100%"
-                                                src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
-                                                onerror="this.onerror=null; this.src='{% static 'img/no-image.jpg' %}'"
-                                                alt="خطا در بارگذاری تصویر"
-                                        />
-                                    </a>
-                                    <figcaption class="info-wrap">
-                                        <a href="{{ post.url }}" class="title text-center">{{ post.title }}</a>
-                                        <div class="mt-1 text-right" style="font-size: 75%">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;{% if post.summary %}{{ post.summary }}{% else %}برای مشاعده محتوا کلیک کنید.{% endif %}
-                                        </div> <!-- price-wrap.// -->
-
-                                    </figcaption>
+            <div class="row text-right mx-lg-0 mx-md-0 mx-5">
+                <aside class="col-md-3 mb-2">
+                    <div class="card">
+                        <div id="category-button">
+                            <div  dir="ltr" class="category-wrap dropdown d-block float-right w-100">
+                                <button type="button" style="font-weight: bold" class="btn btn-outline-primary-light dropdown-toggle px-3 w-100" data-toggle="dropdown">
+                                    دسته بندی پست ها
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-right" href="{% url 'blogs' %}">بلاگ ها</a>
+                                    <a class="dropdown-item text-right" href="{% url 'videos' %}">ویدیو ها</a>
                                 </div>
-                            </div> <!-- col.// -->
-                        {% endif %}
-                    {% endfor %}
-                </div> <!-- row.// -->
-                {% include 'includes/pagination-menu.html' %}
-            {% else %}
-                <div class="row">
-                    <div class="card-body text-center badge bg-gradient-green bg-primary my-5 py-5">
-                        <h2>فعلاً پستی وجود ندارد.</h2>
-                        <hr />
-                        <a href="{% url 'home' %}" class="btn btn-outline-warning">صفحه اصلی</a>
+                            </div>  <!-- category-wrap.// -->
+                        </div> <!-- col.// -->
+                        <article class="filter-group">
+
+                            <div class="filter- content collapse show" id="collapse_1" style="">
+                                <div class="card-body">
+                                    <ul class="list-menu px-1">
+                                        <li class="text-center">
+                                            <a class="mx-auto btn expandable-button {% if request.path == '/posts/blogs/' %}btn-outline-primary-light{% else %}btn-outline-light w-100{% endif %}"
+                                               href="{% url 'blogs' %}">بلاگ ها</a>
+                                        </li>
+                                        <li class="text-center">
+                                            <a class="mx-auto btn expandable-button {% if request.path == '/posts/videos/' %}btn-outline-primary-light{% else %}btn-outline-light w-100{% endif %}"
+                                               href="{% url 'videos' %}">ویدیو ها</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                </div>
-            {% endif %}
+                    <hr />
+                </aside> <!-- col.// -->
+                <main class="col">
+                    {% if posts %}
+                        <div class="row">
+                            {% for post in posts %}
+                                {% if post.is_visible %}
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="card expand-opacity-animation card-product-grid h-100">
+                                            <a href="{{ post.url }}" class="img-wrap">
+                                                <img style="width: 100%"
+                                                        src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
+                                                        onerror="this.onerror=null; this.src='{% static 'img/no-image.jpg' %}'"
+                                                        alt="خطا در بارگذاری تصویر"
+                                                />
+                                            </a>
+                                            <figcaption class="info-wrap">
+                                                <a href="{{ post.url }}" class="title text-center">{{ post.title }}</a>
+                                                <div class="mt-1 text-right" style="font-size: 75%">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;{% if post.summary %}{{ post.summary }}{% else %}برای مشاعده محتوا کلیک کنید.{% endif %}
+                                                </div> <!-- price-wrap.// -->
+
+                                            </figcaption>
+                                        </div>
+                                    </div> <!-- col.// -->
+                                {% endif %}
+                            {% endfor %}
+                        </div> <!-- row.// -->
+                        {% include 'includes/pagination-menu.html' %}
+                    {% else %}
+                        <div class="row">
+                            <div class="card-body text-center badge bg-gradient-orange bg-primary my-5 py-5">
+                                <h2>فعلاً پستی وجود ندارد.</h2>
+                                <hr />
+                                <a href="{% url 'home' %}" class="btn btn-outline-warning">صفحه اصلی</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </main>
+            </div>
         </div><!-- container // -->
     </section>
     <!-- ========================= SECTION  END// ========================= -->
