@@ -244,3 +244,20 @@ ul.product-image-thumbnail li img:hover {
     font-size: 250%;
     color: purple;
 }
+
+.post {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+    }
+
+.post h2 {
+    color: #333;
+}
+
+.post .content {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
