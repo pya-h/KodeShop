@@ -1,30 +1,11 @@
 <!-- templates/blog.html -->
 {% extends 'layout.html' %}
-<style>
-    /* static/css/styles.css */
-    .blog {
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        background-color: #f9f9f9;
-    }
-
-    .blog h2 {
-        color: #333;
-    }
-
-    .blog .content {
-        font-size: 1.1em;
-        line-height: 1.6;
-    }
-</style>
 {% block content %}
     <section class="section-content w-100 ">
         <div class="container">
             <div style="border-radius: 15px" class="card my-5 text-center">
                 <div class="col">
-                    <div class="blog">
+                    <div class="post">
                         <div class="card-header py-3 row">
                             <div class="text-center mx-auto px-5">
                                 <h2>{{ blog.title }}</h2>

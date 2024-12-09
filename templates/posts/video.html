@@ -1,50 +1,33 @@
 <!-- templates/post_list.html -->
 {% extends 'layout.html' %}
-<style>
-    /* static/css/styles.css */
-    .post {
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        background-color: #f9f9f9;
-    }
-
-    .post h2 {
-        color: #333;
-    }
-
-    .post .content {
-        font-size: 1.1em;
-        line-height: 1.6;
-    }
-</style>
 {% block content %}
     <section class="section-content w-100 ">
         <div class="container">
             <div style="border-radius: 15px" class="card my-5 text-center">
                 <div class="col">
-                    <div class="post">
-                        <div class="card-header py-3 row">
-                            <div class="text-center mx-auto px-5">
-                                <h2>{{ post.title }}</h2>
-                                <hr class="mx-auto"/>
-                                <h5 class="py-3">نویسنده: {{ post.author }}</h5>
-                            </div>
+                    <div class="card-header py-3 row">
+                        <div class="text-center mx-auto px-5">
+                            <h2>{{ video.title }}</h2>
+                            <hr class="mx-auto"/>
+                            <h5 class="py-3">نویسنده: {{ video.author }}</h5>
                         </div>
-                        <div class="card-body">
-
-                            <div class="content">
-                                {{ post.body|safe }}  <!-- Renders HTML content safely -->
-                            </div>
-                        </div>
-                        <div class="card-footer pt-5">
-                            <p>نوشته شده توسط {{ post.author }}</p>
-                            <p>{{ post.created_at|date:"F j, Y, g:i a" }}</p>
-                        </div>
-
                     </div>
-                </div> <!-- row.// -->
+                    <div class="card-body">
+                        <div class="content">
+                            <div class="row">
+                                <video class="mx-auto" src="{{ video.get }}" controls></video> {% comment %} Add quality options later ... {% endcomment %}
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <p>{{ video.caption }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer pt-5">
+                        <p> منتشر شده توسط {{ video.author }}</p>
+                        <p>{{ video.created_at|date:"F j, Y, g:i a" }}</p>
+                    </div>
+                </div>
             </div> <!-- card.// -->
         </div>
     </section>
