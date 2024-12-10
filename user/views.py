@@ -72,7 +72,7 @@ def login(request):
                     # if there is a next parameter in url:
                     if 'next' in url_params and url_params['next'] is not None:
                         return redirect(url_params['next'])
-                return redirect('user-dashboard') if not user.is_superuser else redirect('/submax')
+                return redirect('user-dashboard') if not user.is_superuser else redirect('admin-panel')
     except Exception as ex:
         print('sth went wrong while trying to login: ' + ex.__str__())
     return render(request, 'user/login.html')
