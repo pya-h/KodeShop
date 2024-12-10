@@ -60,7 +60,7 @@ def login(request):
                 attach_current_stack_to_current_user(request=request, user=user)  # must be exactly before auth.login
                 auth.login(request, user)
                 merge_user_stacks(user)
-                messages.success(request, '{user} عزیز خوش آمدید.')
+                messages.success(request, f'{user} عزیز خوش آمدید.')
                 # get the current ip of the user every time
                 user.ip = request.META.get('REMOTE_ADDR')
                 user.save()

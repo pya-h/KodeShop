@@ -110,8 +110,7 @@ class Order(models.Model):
     # stats
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='تاریخ به روزرسانی')
-    # is_certified = models.BooleanField(default=False)
-    # is_delivered = models.BooleanField(default=False)
+
     status = models.CharField(max_length=20, choices=STATUS, default='new', verbose_name='وضعیت')
 
     # prices and costs

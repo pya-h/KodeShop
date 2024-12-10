@@ -78,8 +78,7 @@ class MailingInterface:
             email = EmailMessage(subject, body, to=[target, ])
             email.content_subtype = 'html'
             res = email.send()
-            print("Email send response: ", res)
-            # CHECK RESPONSE IS 200, ELSE RAISE EXCEPTION, 
-            # ADD OPTIO  TO RESEND EMAIL
+            if not res:
+                raise Exception('Failed sending email due to unknwon reason!')
         except Exception as ex:
             print("Sending smtp email failed because: ", ex)

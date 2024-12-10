@@ -76,7 +76,7 @@ def take_product(request, product_id):
         try:
             current_stack = open_stack(request)
             try:
-                taken = TakenProduct.objects.get(stack=current_stack)
+                taken = TakenProduct.objects.get(stack=current_stack, product_id=product_id)
             except:
                 taken = None
 

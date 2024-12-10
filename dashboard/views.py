@@ -10,7 +10,7 @@ from django.contrib import messages
 def user_dashboard(request):
     context = {}
     try:
-        context['your_orders_count'] = Order.objects.filter(buyer=request.user, status='certified').count()
+        context['your_orders_count'] = Order.objects.filter(buyer=request.user, status='verified').count()
     except:
         context['your_orders_count'] = 'خطای بارگذاری'
     return render(request, 'dashboard/index.html', context)

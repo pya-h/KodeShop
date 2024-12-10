@@ -39,7 +39,7 @@ def store(request, category_filter=None):
         print(ex.__str__())
 
     pagination = PaginationParams(request, Product, filters)
-    products = pagination.get_items('created_at', order_descending=True)
+    products = pagination.get_items('created', order_descending=True)
     context = {
         'products': products,
         'products_count': products.count() if products else 0,
