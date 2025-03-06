@@ -1,6 +1,4 @@
 from user.models import Profile
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
 from decouple import config
 from datetime import datetime
 from common.exceptions import WaitAssholeException
@@ -19,24 +17,6 @@ class MailingInterface:
     # MAKE IT USER SPECIFIC
     last_email_date = datetime(1970, 1, 1)
     MIN_EMAIL_TIME_DIFFERENCE = 60  # secs
-
-    @staticmethod
-    def SendBySendGrid(target, subject, content):
-        api_key = config('SENDGRID_API_KEY')
-        from_email = config('SENDGRID_FROM_EMAIL')
-        message = Mail(
-            from_email=from_email,
-            to_emails=target,
-            subject=subject,
-            html_content=content)
-        try:
-            sg = SendGridAPIClient(api_key)
-            response = sg.send(message)
-        #            print(response.status_code)
-        #           print(response.body)
-        #           print(response.headers)
-        except Exception as e:
-            print(e)
 
     @staticmethod
     def SendMessage(request, target_email, subject, template_name, dict_content):
