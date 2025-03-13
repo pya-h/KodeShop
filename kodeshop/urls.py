@@ -23,4 +23,5 @@ urlpatterns = [
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path('ckeditor5/upload-video/', views.upload_video, name='upload_video'),
+    path('robots.txt', include('robots.urls')),
 ]

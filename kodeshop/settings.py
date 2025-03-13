@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     # thirdparty apps:
+    'robots.apps.RobotsConfig',
     'admin_honeypot',
     'django_ckeditor_5',
     # my apps
