@@ -10,7 +10,7 @@ from store.sitemaps import ProductSitemap
 from django.contrib.sitemaps.views import sitemap as sitemap_views
 
 sitemaps  = {
-    # 'categories': CategorySitemap,
+    'categories': CategorySitemap,
     'blogs': BlogPostSitemap,
     'videoposts': VideoPostSitemap,
     'products': ProductSitemap

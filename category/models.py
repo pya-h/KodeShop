@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+# TODO: Maybe Create description page for each category, so that we can use its sitemap instance
 
 # category model for classifying your products
 class Category(models.Model):
@@ -24,4 +25,4 @@ class Category(models.Model):
         return self.name_fa
 
     def get_absolute_url(self):
-        return None # FIXME: Create description page for each category, so that we can use its sitemap instance
+        return self.url()
