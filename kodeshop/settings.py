@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     # thirdparty apps:
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'robots.apps.RobotsConfig',
     'admin_honeypot',
     'django_ckeditor_5',
@@ -44,6 +46,8 @@ INSTALLED_APPS = [
     'messaging',
     # 'gateways'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,6 +145,10 @@ EMAIL_HOST_PASSWORD = config('EMAIL_APP_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 # EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
 
+
+# Robots config
+ROBOTS_USE_SITEMAP = True
+ROBOTS_USE_HOST = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

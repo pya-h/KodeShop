@@ -30,12 +30,16 @@ class Product(models.Model):
     def url(self):
         return reverse('single_product', args=[self.category.slug, self.slug])
 
+    def get_absolute_url(self):
+        return self.url()
+
     def ID(self):
         return self.id
 
     def __str__(self):
         return self.name_fa
         # return self.name_fa
+
 
     def format_rating(self):
         reviews = Review.objects.filter(product=self, status=True).aggregate(average_rating=Avg('rating'),

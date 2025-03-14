@@ -4,6 +4,17 @@ from . import views
 from django.views.static import serve
 from django.conf import settings
 from messaging.views import contact_us
+from category.sitemaps import CategorySitemap
+from post.sitemaps import BlogPostSitemap, VideoPostSitemap
+from store.sitemaps import ProductSitemap
+from django.contrib.sitemaps.views import sitemap as sitemap_views
+
+sitemaps  = {
+    # 'categories': CategorySitemap,
+    'blogs': BlogPostSitemap,
+    'videoposts': VideoPostSitemap,
+    'products': ProductSitemap
+}
 
 urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='honey_admin')),
@@ -23,5 +34,6 @@ urlpatterns = [
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path('ckeditor5/upload-video/', views.upload_video, name='upload_video'),
+    path('sitemap.xml', sitemap_views, {"sitemaps": sitemaps}, name='sitemap'),
     path('robots.txt', include('robots.urls')),
 ]

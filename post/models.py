@@ -31,6 +31,9 @@ class BlogPost(PostBase):
     def url(self):
         return reverse('blog_post', args=[self.id])
 
+    def get_absolute_url(self):
+        return self.url()
+
 
 class VideoQualityEnum(Enum):
     LOW = 0
@@ -63,3 +66,6 @@ class VideoPost(PostBase):
                 return self.medium_quality_video.url
             case _:
                 return self.original_video.url
+
+    def get_absolute_url(self):
+        return self.url()
