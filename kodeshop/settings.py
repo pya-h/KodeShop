@@ -80,7 +80,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'category.context_processor.list_categories',
-                'stack.context_processor.stack_counter'
+                'stack.context_processor.stack_counter',
+                "kodeshop.context_processor.provide_app_constants"
             ],
         },
     },

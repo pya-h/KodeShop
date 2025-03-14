@@ -1,5 +1,11 @@
 <!-- templates/post_list.html -->
 {% extends 'layout.html' %}
+{% block title %} | ویدیو {{video.title}} {% endblock %} 
+
+{% block description %}
+{{SHORT_DESCRIPTION}} | {{video.summary}} 
+{% endblock %} 
+
 {% block content %}
     <section class="section-content w-100 ">
         <div class="container">

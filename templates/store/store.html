@@ -3,6 +3,11 @@
 {% load static %}
 {% load humanize %}
 {% load filters %}
+{% block title %} | {{current_category|default:'فروشگاه'}}{% endblock %} 
+
+{% block description %}
+{{SHORT_DESCRIPTION}} | {{current_category}}: {{current_category.description|default:APP_DESCRIPTION}} 
+{% endblock %} 
 
 {% block content %}
     <!-- ========================= SECTION CONTENT ========================= -->
@@ -41,7 +46,7 @@
                                         <li class="text-center"><a class="mx-auto btn expandable-button {% if current_category == None %}w-100 btn-outline-success{% else %}btn-outline-dark{% endif %}" href="{% url 'store' %}">همگی</a></li>
                                         {% for category in categories %}
                                             <li class="text-center">
-                                                <a class="btn expandable-button {% if current_category == category.name_fa %}w-100 btn-outline-success{% else %}btn-outline-dark{% endif %}" href="{{category.url}}">{{ category }}</a>
+                                                <a class="btn expandable-button {% if current_category.id == category.id %}w-100 btn-outline-success{% else %}btn-outline-dark{% endif %}" href="{{category.url}}">{{ category }}</a>
                                             </li>
                                         {% endfor %}
                                     </ul>

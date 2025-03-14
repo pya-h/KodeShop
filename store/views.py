@@ -11,12 +11,12 @@ from kodeshop.utils import PaginationParams
 
 def store(request, category_filter=None):
     max_price = min_price = 0
-    category_fa = None
+    current_category = None
     filters = Q()
     try:
         if category_filter:
             obj_expected_categories = get_object_or_404(Category, slug=category_filter)
-            category_fa = obj_expected_categories.name_fa
+            current_category = obj_expected_categories
             if obj_expected_categories:
                 filters &= Q(category=obj_expected_categories)
 
@@ -43,7 +43,7 @@ def store(request, category_filter=None):
     context = {
         'products': products,
         'products_count': products.count() if products else 0,
-        'current_category': category_fa,
+        'current_category': current_category,
         'category_filter': category_filter,
         'max_price': max_price,
         'min_price': min_price,

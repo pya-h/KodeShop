@@ -2,6 +2,14 @@
 
 {% load static %}
 {% load humanize %}
+
+{%block title%}
+{% if request.path == '/posts/videos/' %}
+| ویدیو ها
+{% else %}
+| بلاگ ها
+{% endif %}
+{%endblock%}
 {% block content %}
 
     <!-- ========================= SECTION  ========================= -->

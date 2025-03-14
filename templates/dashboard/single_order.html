@@ -1,113 +1,106 @@
-{% extends 'layout.html' %}
-{% load static %}
-{% load humanize %}
-
+{% extends 'layout.html' %} {% load static %} {% load humanize %} {% block title %} | سفارش {{order.key}} {% endblock %}
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}" />
 
-    <div class="container" style="padding: 50px;margin: auto;">
-        <div class="row">
-            {% include 'dashboard/sidebar.html' %}
-            <div class="col-md-9 card p-4">
-                <!-- col-lg-12 start here -->
-                <div class="panel panel-default plain" id="dash_0">
-                    <!-- Start .panel -->
-                    <div class="panel-body">
-                        <div dir="rtl" class="row text-right">
-                            <!-- Start .row -->
+<div class="container" style="padding: 50px; margin: auto">
+  <div class="row">
+    {% include 'dashboard/sidebar.html' %}
+    <div class="col-md-9 card p-4">
+      <!-- col-lg-12 start here -->
+      <div class="panel panel-default plain" id="dash_0">
+        <!-- Start .panel -->
+        <div class="panel-body">
+          <div dir="rtl" class="row text-right">
+            <!-- Start .row -->
 
-                            <!-- col-lg-6 end here -->
-                            <div class="text-center col-12">
-                                <!-- col-lg-6 start here -->
-                                <strong class="text-center">مشخصات گیرنده</strong>
-                                <div class="invoice-from text-right">
-                                    <div style="border-top: 1px solid black" class="container my-4">
-                                        <div class="row my-5">
-                                            <div class="col-md-6">
-                                                نام: <strong class="mx-5">{{ order.receiver }}</strong>
-                                            </div>
-                                            <div class="col-md-6">
-                                              آدرس: <strong class="mx-4">{{ order.receiver.province }}, {{ order.receiver.city }}, {{ order.receiver.address }} </strong>
-                                            </div>
-                                        </div>
-                                        <div class="row my-5">
-                                            <div class="col-md-6">
-                                                سفارش:<strong class="mx-4"> {{ order.key  }} </strong>
-                                            </div>
-                                            <div class="col-md-6">
-                                                تراکنش:<strong class="mx-4"> {{ order.transaction.receipt.reference_id }} </strong>
-                                            </div>
-                                        </div>
-                                        <div class="row my-5">
-                                            <div class="col-md-6">
-                                               تاریخ:<strong class="mx-5"> {{ order.date_created }} </strong>
-                                            </div>
-                                            <div class="col-md-6">
-                                               وضعیت:<strong class="mx-4"> {{ order.status_fa }} </strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- col-lg-6 end here -->
-                            <strong  style="color:lightcoral;border-top: 1px dashed black; border-bottom: 1px solid royalblue" class="w-100 my-5 py-4 text-center">مشخصات سفارش</strong>
-
-                            <div class="col-lg-12" class="container my-4">
-                                <!-- col-lg-12 start here -->
-                                <div class="invoice-items">
-                                    <div class="container-table-orders m-0 p-0" style="overflow: hidden; outline: none;" tabindex="0">
-                                    <div class="wrap-table-orders m-0 p-0">
-
-                                        <table class="table-orders table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th class="table-column-1 text-center">کالا</th>
-                                                    <th class="table-column-1 text-center">تعداد</th>
-                                                    <th class="table-column-1  text-center">هزینه (تومان)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody >
-                                            {% for item in items  %}
-                                                <tr>
-                                                    <td  class="table-column-1 text-center p-4">
-                                                        {{ item.product }}
-                                                    </td>
-                                                    <td class="table-column-1 text-center p-3">1</td>
-                                                    <td class="table-column-1 text-center p-3">{{ item.cost | intcomma:False }}</td>
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                            <tfoot>
-                                                <tr >
-                                                    <th class="text-right p-4">جمع اولیه</th>
-                                                    <th colspan="2"  class="text-center p-3">{{ order.cost }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-right p-4">تخفیفات</th>
-                                                    <th colspan="2" class="text-center p-3">{{ order.discounts }}-</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-right p-4">هزینه ارسال</th>
-                                                    <th colspan="2" class="text-center p-3">{{ order.shipping_cost }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-right p-4">قیمت آخر</th>
-                                                    <th colspan="2" class="text-center p-3">{{ order.must_be_paid }}</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- col-lg-12 end here -->
-                        </div>
-                        <!-- End .row -->
+            <!-- col-lg-6 end here -->
+            <div class="text-center col-12">
+              <!-- col-lg-6 start here -->
+              <strong class="text-center">مشخصات گیرنده</strong>
+              <div class="invoice-from text-right">
+                <div style="border-top: 1px solid black" class="container my-4">
+                  <div class="row my-5">
+                    <div class="col-md-6">نام: <strong class="mx-5">{{ order.receiver }}</strong></div>
+                    <div class="col-md-6">
+                      آدرس:
+                      <strong class="mx-4"
+                        >{{ order.receiver.province }}, {{ order.receiver.city }}, {{ order.receiver.address }}
+                      </strong>
                     </div>
+                  </div>
+                  <div class="row my-5">
+                    <div class="col-md-6">سفارش:<strong class="mx-4"> {{ order.key }} </strong></div>
+                    <div class="col-md-6">
+                      تراکنش:<strong class="mx-4"> {{ order.transaction.receipt.reference_id }} </strong>
+                    </div>
+                  </div>
+                  <div class="row my-5">
+                    <div class="col-md-6">تاریخ:<strong class="mx-5"> {{ order.date_created }} </strong></div>
+                    <div class="col-md-6">وضعیت:<strong class="mx-4"> {{ order.status_fa }} </strong></div>
+                  </div>
                 </div>
-                <!-- End .panel -->
+              </div>
+            </div>
+            <!-- col-lg-6 end here -->
+            <strong
+              style="color: lightcoral; border-top: 1px dashed black; border-bottom: 1px solid royalblue"
+              class="w-100 my-5 py-4 text-center"
+              >مشخصات سفارش</strong
+            >
+
+            <div class="col-lg-12" class="container my-4">
+              <!-- col-lg-12 start here -->
+              <div class="invoice-items">
+                <div class="container-table-orders m-0 p-0" style="overflow: hidden; outline: none" tabindex="0">
+                  <div class="wrap-table-orders m-0 p-0">
+                    <table class="table-orders table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="table-column-1 text-center">کالا</th>
+                          <th class="table-column-1 text-center">تعداد</th>
+                          <th class="table-column-1 text-center">هزینه (تومان)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in items %}
+                        <tr>
+                          <td class="table-column-1 text-center p-4">{{ item.product }}</td>
+                          <td class="table-column-1 text-center p-3">1</td>
+                          <td class="table-column-1 text-center p-3">{{ item.cost | intcomma:False }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th class="text-right p-4">جمع اولیه</th>
+                          <th colspan="2" class="text-center p-3">{{ order.cost }}</th>
+                        </tr>
+                        <tr>
+                          <th class="text-right p-4">تخفیفات</th>
+                          <th colspan="2" class="text-center p-3">{{ order.discounts }}-</th>
+                        </tr>
+                        <tr>
+                          <th class="text-right p-4">هزینه ارسال</th>
+                          <th colspan="2" class="text-center p-3">{{ order.shipping_cost }}</th>
+                        </tr>
+                        <tr>
+                          <th class="text-right p-4">قیمت آخر</th>
+                          <th colspan="2" class="text-center p-3">{{ order.must_be_paid }}</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- col-lg-12 end here -->
+          </div>
+          <!-- End .row -->
         </div>
+      </div>
+      <!-- End .panel -->
     </div>
+    <!-- col-lg-12 end here -->
+  </div>
+</div>
 {% endblock %}

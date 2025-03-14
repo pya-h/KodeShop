@@ -1,29 +1,37 @@
 <!-- templates/blog.html -->
-{% extends 'layout.html' %}
-{% block content %}
-    <section class="section-content w-100 ">
-        <div class="container">
-            <div style="border-radius: 15px" class="card my-5 text-center">
-                <div class="col">
-                    <div class="card-header py-3 row">
-                        <div class="text-center mx-auto px-5">
-                            <h2>{{ blog.title }}</h2>
-                            <hr class="mx-auto"/>
-                            <h5 class="py-3">نویسنده: {{ blog.author }}</h5>
-                        </div>
-                    </div>
-                    <div class="card-body">
+{% extends 'layout.html' %} 
+{% block title %} | بلاگ {{blog.title}} {% endblock %} 
 
-                        <div class="content">
-                            {{ blog.body|safe }}  <!-- Renders HTML content safely -->
-                        </div>
-                    </div>
-                    <div class="card-footer pt-5">
-                        <p>نوشته شده توسط {{ blog.author }}</p>
-                        <p>{{ blog.created_at|date:"F j, Y, g:i a" }}</p>
-                    </div>
-                </div> <!-- row.// -->
-            </div> <!-- card.// -->
+{% block description %}
+{{SHORT_DESCRIPTION}} | {{blog.summary}} 
+{% endblock %} 
+
+{% block content %}
+<section class="section-content w-100">
+  <div class="container">
+    <div style="border-radius: 15px" class="card my-5 text-center">
+      <div class="col">
+        <div class="card-header py-3 row">
+          <div class="text-center mx-auto px-5">
+            <h2>{{ blog.title }}</h2>
+            <hr class="mx-auto" />
+            <h5 class="py-3">نویسنده: {{ blog.author }}</h5>
+          </div>
         </div>
-    </section>
+        <div class="card-body">
+          <div class="content">
+            {{ blog.body|safe }}
+            <!-- Renders HTML content safely -->
+          </div>
+        </div>
+        <div class="card-footer pt-5">
+          <p>نوشته شده توسط {{ blog.author }}</p>
+          <p>{{ blog.created_at|date:"F j, Y, g:i a" }}</p>
+        </div>
+      </div>
+      <!-- row.// -->
+    </div>
+    <!-- card.// -->
+  </div>
+</section>
 {% endblock %}
